@@ -32,7 +32,7 @@ public class Main extends Application {
 		//Obstacle obstacle2 = new Obstacle("file:src/p4_group_8_repo/truck1Right.png",0,  150, 1);
 
 		//BackgroundImage froggerback = new BackgroundImage("file:src/p4_group_8_repo/Screen Shot 2017-05-29 at 10.02.14 PM.png");
-		BackgroundImage froggerback = new BackgroundImage("file:src/p4_group_8_repo/frog background.png");
+		BackgroundImage froggerback = new BackgroundImage("file:src/p4_group_8_repo/frog background2.png");
 	    
 		background.add(froggerback);
 		
