@@ -10,11 +10,9 @@ public class MyStage extends World{
 	MediaPlayer mediaPlayer;
 	@Override
 	public void act(long now) {
-		
 	}
 	
-	public MyStage() {
-		
+	public MyStage(){
 //		mediaPlayer.play();
 //		mediaPlayer.setOnEndOfMedia(new Runnable() {
 //

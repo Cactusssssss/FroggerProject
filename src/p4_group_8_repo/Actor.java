@@ -51,5 +51,4 @@ public abstract class Actor extends ImageView{
     }
 
     public abstract void act(long now);
-
 }
