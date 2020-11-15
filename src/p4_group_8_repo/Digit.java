@@ -8,7 +8,6 @@ public class Digit extends Actor{
 	@Override
 	public void act(long now) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	public Digit(int n, int dim, int x, int y) {
