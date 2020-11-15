@@ -48,8 +48,7 @@ public class Animal extends Actor {
 			public void handle(KeyEvent event){
 				if (noMove) {
 					//Doing nothing because not moving
-				}
-				else {
+				}else{
 				if (second) {
 					if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {	  
 		                move(0, -movement);
@@ -86,7 +85,7 @@ public class Animal extends Actor {
 	            	 setImage(imgD2);
 	            	 second = true;
 	            }
-	        }
+				}
 			}
 		});	
 		setOnKeyReleased(new EventHandler<KeyEvent>() {
@@ -126,15 +125,16 @@ public class Animal extends Actor {
 	
 	@Override
 	public void act(long now) {
-		int bounds = 0;
-		if (getY()<0 || getY()>734) {
+		//int bounds = 0; // not used
+		//if (getY()<0 || getY()>734) { setX(300); setY(679.8+movement); } // original movements
+		if (getY()<0 || getY()>800) {
 			setX(300);
 			setY(679.8+movement);
 		}
 		if (getX()<0) {
 			move(movement*2, 0);
 		}
-		if (carDeath) {
+		if (carDeath) { // car death animation timer
 			noMove = true;
 			if ((now)% 11 ==0) {
 				carD++;
@@ -164,7 +164,7 @@ public class Animal extends Actor {
 		}
 		if (waterDeath) {
 			noMove = true;
-			if ((now)% 11 ==0) {
+			if ( (now)% 10 == 0) { // water death animation timer
 				carD++;
 			}
 			if (carD==1) {
