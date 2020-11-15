@@ -22,7 +22,7 @@ public class Animal extends Actor {
 	boolean waterDeath = false;
 	boolean stop = false;
 	boolean changeScore = false;
-	int carD = 0;
+	int death = 0;
 	double w = 800;
 	
 	ArrayList<End> inter = new ArrayList<End>();
@@ -129,23 +129,23 @@ public class Animal extends Actor {
 		}
 		if (carDeath) { // car death animation
 			noMove = true;
-			if ((now)% 11 ==0) {
-				carD++;
+			if ((now)% 11 == 0) {
+				death++;
 			}
-			if (carD==1) {
+			if (death==1) {
 				setImage(new Image( img_path + "cardeath1.png", imgSize, imgSize, true, true));
 			}
-			if (carD==2) {
+			if (death==2) {
 				setImage(new Image( img_path + "cardeath2.png", imgSize, imgSize, true, true));
 			}
-			if (carD==3) {
+			if (death==3) {
 				setImage(new Image( img_path + "cardeath3.png", imgSize, imgSize, true, true));
 			}
-			if (carD == 4) {
+			if (death == 4) {
 				setX(300);
 				setY(733.13+movementY);
 				carDeath = false;
-				carD = 0;
+				death = 0;
 				setImage(new Image( img_path + "froggerUp.png", imgSize, imgSize, true, true));
 				noMove = false;
 				if (points>50) {
@@ -153,30 +153,29 @@ public class Animal extends Actor {
 					changeScore = true;
 				}
 			}
-			
 		}
 		if (waterDeath) {
 			noMove = true;
 			if ( (now)% 11 == 0) { // water death animation
-				carD++;
+				death++;
 			}
-			if (carD==1) {
+			if (death==1) {
 				setImage(new Image( img_path + "waterdeath1.png", imgSize, imgSize , true, true));
 			}
-			if (carD==2) {
+			if (death==2) {
 				setImage(new Image( img_path + "waterdeath2.png", imgSize, imgSize , true, true));
 			}
-			if (carD==3) {
+			if (death==3) {
 				setImage(new Image( img_path + "waterdeath3.png", imgSize, imgSize , true, true));
 			}
-			if (carD == 4) {
+			if (death == 4) {
 				setImage(new Image( img_path + "waterdeath4.png", imgSize, imgSize , true, true));
 			}
-			if (carD == 5) {
+			if (death == 5) {
 				setX(300);
 				setY(733.13+movementY);
 				waterDeath = false;
-				carD = 0;
+				death = 0;
 				setImage(new Image( img_path + "froggerUp.png", imgSize, imgSize, true, true));
 				noMove = false;
 				if (points>50) {
@@ -246,8 +245,13 @@ public class Animal extends Actor {
 			return true;
 		}
 		return false;
-		
 	}
 	
+	public void waitTime(int time) {
+		try {
+			wait(time);
+		} catch (InterruptedException e) {
+		}
+	}
 
 }

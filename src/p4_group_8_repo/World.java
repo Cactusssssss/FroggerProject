@@ -64,7 +64,6 @@ public abstract class World extends Pane {
 
     public void createTimer() {
         timer = new AnimationTimer() {
-            @Override
             public void handle(long now) {
                 act(now);
                 List<Actor> actors = getObjects(Actor.class);
@@ -72,7 +71,6 @@ public abstract class World extends Pane {
                 for (Actor anActor: actors) {
                 	anActor.act(now);
                 }
-      
             }
         };
     }

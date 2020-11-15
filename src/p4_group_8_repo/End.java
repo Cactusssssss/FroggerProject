@@ -6,7 +6,6 @@ public class End extends Actor{
 	boolean activated = false;
 	@Override
 	public void act(long now) {
-		// TODO Auto-generated method st
 	}
 	
 	public End(int x, int y) {
