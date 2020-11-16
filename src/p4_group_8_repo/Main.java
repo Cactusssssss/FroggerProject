@@ -26,7 +26,6 @@ public class Main extends Application {
 		launch(args);
 	}
 
-	@Override
 	public void start(Stage primaryStage) throws Exception {
 		//application window
 	    Scene scene  = new Scene(background,600,800);
@@ -36,11 +35,11 @@ public class Main extends Application {
 		background.add(froggerback);
 		
 		//logs
+		background.add(new Log( img_path + "logs.png", 300, 0, 276, -2));
+		background.add(new Log( img_path + "logs.png", 300, 400, 276, -2));
 		background.add(new Log( img_path + "log3.png", 150, 0, 166, 0.75));
 		background.add(new Log( img_path + "log3.png", 150, 220, 166, 0.75));
 		background.add(new Log( img_path + "log3.png", 150, 440, 166, 0.75));
-		background.add(new Log( img_path + "logs.png", 300, 0, 276, -2));
-		background.add(new Log( img_path + "logs.png", 300, 400, 276, -2));
 		background.add(new Log( img_path + "log3.png", 150, 50, 329, 0.75));
 		background.add(new Log( img_path + "log3.png", 150, 270, 329, 0.75));
 		background.add(new Log( img_path + "log3.png", 150, 490, 329, 0.75));
@@ -91,38 +90,41 @@ public class Main extends Application {
             		setNumber(animal.getPoints());
             	}
             	if (animal.getStop()) {
-            		System.out.print("STOP: Player has won!");
-            		background.stopMusic();
-            		background.stop();
-            		
-            		Alert alert = new Alert(AlertType.INFORMATION);
-            		alert.setTitle("You Have Won The Game!");
-            		alert.setHeaderText("Your High Score: "+animal.getPoints()+"!");
-            		alert.setContentText("Highest Possible Score: 800");
-            		alert.show();
-            		stop();
+            		winPopup();
             	}
             }
         };
     }
 	public void start() {
-		//background.playMusic();
     	createTimer();
         timer.start();
+        background.playMusic();
     }
 
     public void stop() {
         timer.stop();
+        background.stopMusic();
     }
     
     public void setNumber(int n) {
     	int shift = 0;
     	while (n > 0) {
-    		  int d = n / 10;
-    		  int k = n - d * 10;
-    		  n = d;
-    		  background.add(new Digit(k, 30, 360 - shift, 25));
-    		  shift+=30;
-    		}
+    		int d = n / 10;
+    		int k = n - d * 10;
+    		n = d;
+    		background.add(new Digit(k, 30, 360 - shift, 25));
+    		shift+=30;
+    	}
+    }
+    
+    public void winPopup() {
+    	System.out.print("STOP: Player has won!");
+		
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("You Have Won The Game!");
+		alert.setHeaderText("Your High Score: "+animal.getPoints()+"!");
+		alert.setContentText("Highest Possible Score: 800");
+		alert.show();
+		stop();
     }
 }
