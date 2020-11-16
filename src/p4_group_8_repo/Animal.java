@@ -100,8 +100,6 @@ public class Animal extends Actor {
 	            	 move(-movementX, 0);
 	            	 setImage(imgA1);
 	            	 second = false;
-	            	 Alert alert = new Alert(AlertType.INFORMATION);
-	            	 alert.setTitle("You have moved left!");
 	            }
 	            else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {	            	
 	            	 move(0, movementY);
@@ -115,7 +113,6 @@ public class Animal extends Actor {
 	            }
 				}
 			}
-			
 		}); 
 	}
 	

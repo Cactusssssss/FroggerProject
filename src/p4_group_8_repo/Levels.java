@@ -20,10 +20,7 @@ public class Levels {
 	Animal animal = new Animal( img_path + "froggerUp.png");
 	AnimationTimer timer;
 	
-	//frogger player
-	//Animal animal = new Animal( img_path + "froggerUp.png");
 	
-	//public void lvl_1(Stage stage_1, Animal animal, AnimationTimer timer) throws Exception{
 	public void lvl_1(Stage stage_1) throws Exception{
 			//application window
 	    	Scene scene  = new Scene(background,600,800);
