@@ -47,9 +47,9 @@ public class MainMenu extends Actor{
 							dispMenu = false;
 							System.out.print("Continued!\n");// DEBUG: test continue
 							return;
-						} catch (Exception except) {
-							System.out.print("ERROR: Cannot continue to Level 1");
-							except.printStackTrace();
+						} catch (Exception e) {
+							System.out.print("ERROR: Unable to continue to Level 1\n");
+							e.printStackTrace();
 						}
 					}
 				}else {

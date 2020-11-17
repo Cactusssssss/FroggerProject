@@ -4,19 +4,30 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
 
 public class Levels extends World{
 	private String img_path = new String("file:src/p4_group_8_repo/");
 	private MyStage background;
 	private Animal animal = new Animal( img_path + "froggerUp.png");
+	private Image froggerIcon = new Image( img_path + "icon-frogger-pixel-512x512.png");
 	
 	//width value->x & height value->y
 	private int x = 600;
 	private int y = 800;
 	
+	//score number x & y value & dimensions
+	private int scorex = 360;
+	private int scorey = 50;
+	private int scoredim = 25;
+	
 	AnimationTimer timer;
 	Scene scene;
+	
+	//boolean values
+	boolean changeTimerDigit = false;
 	
 	public void act(long now) {
 	}
@@ -64,7 +75,7 @@ public class Levels extends World{
 		background.add(new Obstacle( img_path + "car1Left.png", 400, 597, -1, 50, 50));
 		background.add(new Obstacle( img_path + "car1Left.png", 550, 597, -1, 50, 50));
 		background.add(new Obstacle( img_path + "car1Left.png", 500, 490, -5, 50, 50));
-		background.add(new Digit(0, 30, 360, 25));
+		background.add(new Digit(0, scoredim, scorex, scorey));
 		
 		//frogger player
 		background.add(animal);
@@ -95,9 +106,12 @@ public class Levels extends World{
     }
 	
 	public void showStage(Stage stage) {
+		stage.setResizable(false);
+		
+		stage.getIcons().add(froggerIcon);
+		stage.setTitle(" Frogger ");
+		
 		stage.setScene(scene);
-		stage.setTitle("Frogger");
-    	stage.setResizable(false);
 		stage.show();
 	}
 	
@@ -132,21 +146,28 @@ public class Levels extends World{
     		int d = n / 10;
     		int k = n - d * 10;
     		n = d;
-    		background.add(new Digit(k, 30, 360 - shift, 25));
+    		background.add(new Digit(k, scoredim, scorex - shift, scorey));
     		shift+=30;
     	}
     }
     
     public void winPopup() {
     	System.out.print("STOP: Player has won!");
+    	background.stopMusic();
+    	stop();
 		
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("You Have Won The Game!");
-		alert.setHeaderText("Your High Score: "+ animal.getPoints()+"!");
-		alert.setContentText("Highest Possible Score: 800");
+		alert.setTitle("Game Over!");
+		alert.setHeaderText("Your High Score: " + animal.getPoints() + "!");
+		alert.setContentText("Congratulations!!!");
 		alert.show();
-		
-		background.stopMusic();
-		stop();
     }
+    
+    public boolean changeTimerDigit() {
+		if (changeTimerDigit) {
+			changeTimerDigit = false;
+			return true;
+		}
+		return false;
+	}
 }

@@ -19,8 +19,8 @@ public class Log extends Actor {
 		setX(xpos);
 		setY(ypos);
 		speed = s;
-		
 	}
+	
 	public boolean getLeft() {
 		return speed < 0;
 	}

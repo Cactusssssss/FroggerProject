@@ -24,8 +24,10 @@ public class Animal extends Actor {
 	int imgSize = 40;
 	int death = 0;
 	double w = 800; // width
+	long mseconds = 1000;
 	
 	//boolean values
+	private boolean godMode = true; // debug changeable
 	private boolean second = false;
 	boolean noMove = false;
 	boolean carDeath = false;
@@ -126,7 +128,6 @@ public class Animal extends Actor {
 		}); 
 	}
 	
-	@Override
 	public void act(long now) {
 		if (getY()<0 || getY()>800) { // Y-movement limitation
 			setX(300);
@@ -196,53 +197,69 @@ public class Animal extends Actor {
 			
 		}
 		
-		if (getX()>600) {
-			move(-movementY*2, 0);
-		}
-		if (getIntersectingObjects(Obstacle.class).size() >= 1) {
-			carDeath = true;
-		}
-		if (getX() == 240 && getY() == 82) {
-			stop = true;
-		}
-		if (getIntersectingObjects(Log.class).size() >= 1 && !noMove) {
-			if(getIntersectingObjects(Log.class).get(0).getLeft())
-				move(-2,0);
-			else
-				move (.75,0);
-		}
-		else if (getIntersectingObjects(Turtle.class).size() >= 1 && !noMove) {
-			move(-1,0);
-		}
-		else if (getIntersectingObjects(WetTurtle.class).size() >= 1) {
-			if (getIntersectingObjects(WetTurtle.class).get(0).isSunk()) {
-				waterDeath = true;
-			} else {
+		if( !(godMode) ) { 
+			// death logic
+			if (getX()>600) {
+				move(-movementY*2, 0);
+			}
+			if (getIntersectingObjects(Obstacle.class).size() >= 1) {
+				carDeath = true;
+			}
+			if (getX() == 240 && getY() == 82) {
+				stop = true;
+			}
+			if (getIntersectingObjects(Log.class).size() >= 1 && !noMove) {
+				if(getIntersectingObjects(Log.class).get(0).getLeft()) {
+					move(-2,0);
+				}
+				else {
+					move (.75,0);
+				}
+			}
+			else if (getIntersectingObjects(Turtle.class).size() >= 1 && !noMove) {
 				move(-1,0);
 			}
-		}
-		else if (getIntersectingObjects(End.class).size() >= 1) {
-			inter = (ArrayList<End>) getIntersectingObjects(End.class);
-			if (getIntersectingObjects(End.class).get(0).isActivated()) {
-				end--;
-				points-=50;
+			else if (getIntersectingObjects(WetTurtle.class).size() >= 1) {
+				if (getIntersectingObjects(WetTurtle.class).get(0).isSunk()) {
+					waterDeath = true;
+				} else { move(-1,0); }
 			}
-			points+=50;
-			changeScore = true;
-			w=800;
-			getIntersectingObjects(End.class).get(0).setEnd();
-			end++;
-			setX(300);
-			setY(733.13+movementY);
+			else if (getIntersectingObjects(End.class).size() >= 1) { //objective intersection logic
+				inter = (ArrayList<End>) getIntersectingObjects(End.class);
+				if (getIntersectingObjects(End.class).get(0).isActivated()) {
+					end--;
+					points-=50;
+				}
+				points+=50;
+				changeScore = true;
+				w=800;
+				getIntersectingObjects(End.class).get(0).setEnd();
+				end++;
+				setX(300);
+				setY(733.13+movementY);
+			}
+			else if (getY()<413){	waterDeath = true;
+			}
+		}else {
+			if (getIntersectingObjects(End.class).size() >= 1) {
+				inter = (ArrayList<End>) getIntersectingObjects(End.class);
+				if (getIntersectingObjects(End.class).get(0).isActivated()) {
+					end--;
+					points-=50;
+				}
+				points+=50;
+				changeScore = true;
+				w=800;
+				getIntersectingObjects(End.class).get(0).setEnd();
+				end++;
+				setX(300);
+				setY(733.13+movementY);
+			}
 		}
-		else if (getY()<413){
-			waterDeath = true;
-			//setX(300);
-			//setY(733.13+movementY);
-		}
-	}
+	}//end act method
+	
 	public boolean getStop() {
-		return end==1;
+		return end==5;
 	}
 	
 	public int getPoints() {
@@ -256,12 +273,4 @@ public class Animal extends Actor {
 		}
 		return false;
 	}
-	
-	public void waitTime(int time) {
-		try {
-			wait(time);
-		} catch (InterruptedException e) {
-		}
-	}
-
 }
