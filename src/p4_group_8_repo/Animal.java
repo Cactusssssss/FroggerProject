@@ -3,30 +3,39 @@ package p4_group_8_repo;
 import java.util.ArrayList;
 
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-
 public class Animal extends Actor {
-	String img_path = new String("file:src/p4_group_8_repo/");
-	int points = 0;
-	int end = 0;
-	private boolean second = false;
-	boolean noMove = false;
+	private String img_path = new String("file:src/p4_group_8_repo/");
+	private MyStage background;
+	
+	// get background instance from Levels.java
+	Animal(Levels level){
+		background = level.getBackgroundInstance();
+	}
+	
+	//numerical values
 	double movementY = 13.3333333*2;
 	double movementX = 10.666666*2;
+	int points = 0;
+	int end = 0;
 	int imgSize = 40;
+	int death = 0;
+	double w = 800; // width
+	
+	//boolean values
+	private boolean second = false;
+	boolean noMove = false;
 	boolean carDeath = false;
 	boolean waterDeath = false;
 	boolean stop = false;
 	boolean changeScore = false;
-	int death = 0;
-	double w = 800;
+	boolean muteMusic = false;
 	
 	ArrayList<End> inter = new ArrayList<End>();
+	
 	public Animal(String imageLink) {
 		setImage(new Image(imageLink, imgSize, imgSize, true, true));
 		setX(300);
@@ -39,49 +48,50 @@ public class Animal extends Actor {
 		Image imgA2 = new Image( img_path + "froggerLeftJump.png", imgSize, imgSize, true, true);
 		Image imgS2 = new Image( img_path + "froggerDownJump.png", imgSize, imgSize, true, true);
 		Image imgD2 = new Image( img_path + "froggerRightJump.png", imgSize, imgSize, true, true);
+		
 		setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event){
 				if (noMove) {
 				}else{
 					if (second) {
-						if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {	  
+						if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {
 			                move(0, -movementY);
 			                changeScore = false;
 			                setImage(imgW1);
 			                second = false;
 			            }else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {	            	
-			            	 move(-movementX, 0);
-			            	 setImage(imgA1);
-			            	 second = false;
+			            	move(-movementX, 0);
+			            	setImage(imgA1);
+			            	second = false;
 			            }else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {	            	
-			            	 move(0, movementY);
-			            	 setImage(imgS1);
-			            	 second = false;
+			            	move(0, movementY);
+			            	setImage(imgS1);
+			            	second = false;
 			            }else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {	            	
-			            	 move(movementX, 0);
-			            	 setImage(imgD1);
-			            	 second = false;
+			            	move(movementX, 0);
+			            	setImage(imgD1);
+			            	second = false;
 			            }
 					}else if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {	            	
 		                move(0, -movementY);
 		                setImage(imgW2);
 		                second = true;
 		            }else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {	            	
-		            	 move(-movementX, 0);
-		            	 setImage(imgA2);
-		            	 second = true;
+		            	move(-movementX, 0);
+		            	setImage(imgA2);
+		            	second = true;
 		            }else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {	            	
-		            	 move(0, movementY);
-		            	 setImage(imgS2);
-		            	 second = true;
+		            	move(0, movementY);
+		            	setImage(imgS2);
+		            	second = true;
 		            }else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {	            	
-		            	 move(movementX, 0);
-		            	 setImage(imgD2);
-		            	 second = true;
+		            	move(movementX, 0);
+		            	setImage(imgD2);
+		            	second = true;
 		            }
 				}
 			}
-		});	
+		});
 		setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event) {
 				if (noMove) {
@@ -97,19 +107,19 @@ public class Animal extends Actor {
 	                second = false;
 	            }
 	            else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {	            	
-	            	 move(-movementX, 0);
-	            	 setImage(imgA1);
-	            	 second = false;
+	            	move(-movementX, 0);
+	            	setImage(imgA1);
+	            	second = false;
 	            }
 	            else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {	            	
-	            	 move(0, movementY);
-	            	 setImage(imgS1);
-	            	 second = false;
+	            	move(0, movementY);
+	            	setImage(imgS1);
+	            	second = false;
 	            }
 	            else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {	            	
-	            	 move(movementX, 0);
-	            	 setImage(imgD1);
-	            	 second = false;
+	            	move(movementX, 0);
+	            	setImage(imgD1);
+	            	second = false;
 	            }
 				}
 			}

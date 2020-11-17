@@ -11,9 +11,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 
 
 public abstract class World extends Pane {
@@ -22,12 +20,9 @@ public abstract class World extends Pane {
     public World() {
     	
     	sceneProperty().addListener(new ChangeListener<Scene>(){
-			@Override
 			public void changed(ObservableValue<? extends Scene> observable, Scene oldValue, Scene newValue) {
 				if (newValue != null) {
 					newValue.setOnKeyReleased(new EventHandler<KeyEvent>() {
-
-						@Override
 						public void handle(KeyEvent event) {
 							if(getOnKeyReleased() != null) 
 								getOnKeyReleased().handle(event);
@@ -42,11 +37,10 @@ public abstract class World extends Pane {
 					});
 					
 					newValue.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
-						@Override
 						public void handle(KeyEvent event) {
-							if(getOnKeyPressed() != null) 
+							if(getOnKeyPressed() != null) {
 								getOnKeyPressed().handle(event);
+							}
 							List<Actor> myActors = getObjects(Actor.class);
 							for (Actor anActor: myActors) {
 								if (anActor.getOnKeyPressed() != null) {
@@ -63,7 +57,7 @@ public abstract class World extends Pane {
     }
 
     public void createTimer() {
-        timer = new AnimationTimer() {
+        this.timer = new AnimationTimer() {
             public void handle(long now) {
                 act(now);
                 List<Actor> actors = getObjects(Actor.class);
@@ -74,7 +68,11 @@ public abstract class World extends Pane {
             }
         };
     }
-
+    
+    public AnimationTimer getTimerInstance() {
+    	return this.timer;
+    }
+    
     public void start() {
     	createTimer();
         timer.start();

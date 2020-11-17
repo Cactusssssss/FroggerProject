@@ -7,11 +7,10 @@ public class WetTurtle extends Actor{
 	Image turtle2;
 	Image turtle3;
 	Image turtle4;
-	private int speed;
+	private int speed =0;
 	int i = 1;
 	boolean bool = true;
 	boolean sunk = false;
-	@Override
 	public void act(long now) {
 				if (now/900000000  % 4 ==0) {
 					setImage(turtle2);
