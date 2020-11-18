@@ -57,7 +57,7 @@ public abstract class World extends Pane {
     }
 
     public void createTimer() {
-        this.timer = new AnimationTimer() {
+        timer = new AnimationTimer() {
             public void handle(long now) {
                 act(now);
                 List<Actor> actors = getObjects(Actor.class);

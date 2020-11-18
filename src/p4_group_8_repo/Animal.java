@@ -9,12 +9,6 @@ import javafx.scene.input.KeyEvent;
 
 public class Animal extends Actor {
 	private String img_path = new String("file:src/p4_group_8_repo/");
-	private MyStage background;
-	
-	// get background instance from Levels.java
-	Animal(Levels level){
-		background = level.getBackgroundInstance();
-	}
 	
 	//x & y values
 	double movementY = 13.3333333*2;
@@ -24,14 +18,12 @@ public class Animal extends Actor {
 	
 	//values
 	int points = 0;
-	int end = 0;
 	int imgSize = 40;
 	int death = 0;
 	double w = 800; // width
 	long mseconds = 1000;
 	
 	//boolean values
-	private boolean godMode = true; // debug changeable
 	private boolean second = false;
 	boolean noMove = false;
 	boolean carDeath = false;
@@ -40,8 +32,11 @@ public class Animal extends Actor {
 	boolean changeScore = false;
 	boolean muteMusic = false;
 	
-	ArrayList<End> inter = new ArrayList<End>();
+	//for debugging
+	private boolean godMode = true;
+	private int end = 4;
 	
+	ArrayList<End> inter = new ArrayList<End>();
 	public Animal(String imageLink) {
 		setImage(new Image(imageLink, imgSize, imgSize, true, true));
 		setX(spawnX);
@@ -255,16 +250,24 @@ public class Animal extends Actor {
 				changeScore = true;
 				w=800;
 				getIntersectingObjects(End.class).get(0).setEnd();
-				end++;
+				end += 1;
 				setX(spawnX);
 				setY(spawnY);
 			}
 		}
 	}//end act method
 	
-	public boolean getStop() {
-		return end==5;
+	
+	public boolean getStopBool() {
+		return (end==5);
 	}
+	public int getStopInt() {
+		return end;
+	}
+	public void setStop(int end) {
+		this.end = end;
+	}
+	
 	
 	public int getPoints() {
 		return points;

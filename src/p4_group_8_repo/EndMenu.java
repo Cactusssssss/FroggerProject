@@ -5,28 +5,21 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-public class MainMenu extends Actor{
+public class EndMenu extends Actor{
 	private String img_path = new String("file:src/p4_group_8_repo/");
 	private Levels level = new Levels();
 	private MyStage background;
-	
-	//private Scene mainMenuScene;
-	
-	private int x = 600;
-	private int y = 800;
-	
-	private boolean dispMenu = true;
 	
 	private void setNewBackground() {
 		level.newBackground();
 		background = level.getBackgroundInstance();
 	}
 	
-	public MainMenu() {
-		System.out.print("Main Menu instance Created!"); //for debug
+	public EndMenu() {
+		System.out.print("End Menu instance Created!"); //for debug
 	}
 	
-	public MainMenu (Stage mainMenu) {
+	public EndMenu (Stage endMenu) {
 		setNewBackground();
 		BackgroundImage froggerMenuBackground = new BackgroundImage( img_path + "menu-image2.png");
 		background.add(froggerMenuBackground);
@@ -56,12 +49,5 @@ public class MainMenu extends Actor{
 				}
 			}
 		});
-	}
-	
-	public void setDispMenu(boolean dispMenu) {
-		this.dispMenu = dispMenu;
-	}
-	
-	public void act(long now) {
 	}
 }

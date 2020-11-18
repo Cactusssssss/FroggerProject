@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 public class End extends Actor{
 	boolean activated = false;
-	@Override
+
 	public void act(long now) {
 	}
 	

@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 public class Obstacle extends Actor {
 	private int speed;
-	@Override
+
 	public void act(long now) {
 		move(speed , 0);
 		if (getX() > 600 && speed>0)

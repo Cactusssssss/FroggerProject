@@ -21,19 +21,18 @@ public class MyStage extends World{
 		mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 	}
 	
+	
+	
 	public void playMusic() { //start music (game beginning)
 		selectMusic();
 	    mediaPlayer.play();
 	}
-	
 	public void pauseMusic() {
 		mediaPlayer.pause();
 	}
-	
 	public void resumeMusic() { // resume music that was paused
 		mediaPlayer.play();
 	}
-	
 	public void stopMusic() { //ends music (game ending)
 		mediaPlayer.stop();
 	}
