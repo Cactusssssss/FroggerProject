@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 
 public class Levels extends World{
+	//file path and icon image declaration
 	private String img_path = new String("file:src/p4_group_8_repo/");
 	private MyStage background;
 	private Animal animal = new Animal( img_path + "froggerUp.png");
@@ -18,20 +19,26 @@ public class Levels extends World{
 	private int x = 600;
 	private int y = 800;
 	
-	//score number x & y value & dimensions
+	//x & y valeus
 	private int scorex = 360;
 	private int scorey = 50;
-	private int scoredim = 25;
+	private int timerx = 150;
+	private int timery = 50;
+	private long nowTimer = 0;
+	private int timerSecs = 0;
+	//digit dimensions
+	private int digDim = 30;
 	
 	AnimationTimer timer;
 	Scene scene;
 	
 	//boolean values
-	boolean changeTimerDigit = false;
-	
-	public void act(long now) {
-	}
+	private boolean changeTimer = false;
+	private boolean timerStarted = false;
 
+	public void act(long now) {// not usable unless Levels created as an instance
+	}
+	
 	public void lvl_1(Stage stage_1) throws Exception{
 		//set new background & background image
 		newBackground();
@@ -75,17 +82,15 @@ public class Levels extends World{
 		background.add(new Obstacle( img_path + "car1Left.png", 400, 597, -1, 50, 50));
 		background.add(new Obstacle( img_path + "car1Left.png", 550, 597, -1, 50, 50));
 		background.add(new Obstacle( img_path + "car1Left.png", 500, 490, -5, 50, 50));
-		background.add(new Digit(0, scoredim, scorex, scorey));
-		
+		background.add(new Digit(0, digDim, scorex, scorey));
+		background.add(new Digit(0, digDim, timerx, timery));
+
 		//frogger player
 		background.add(animal);
 		
-		//show window
+		//set & start game
 		setScene(background, x, y);
-		showStage(stage_1);
-		
-		background.playMusic();
-		start();
+		start(stage_1);
 	}
 	
 	public void lvl_2(Stage stage_2) throws Exception{
@@ -95,10 +100,23 @@ public class Levels extends World{
 	public void createTimer() {
 		this.timer = new AnimationTimer() {
             public void handle(long now) {
-            	if (animal.changeScore()) {
-            		setNumber(animal.getPoints());
+            	if( !timerStarted ) { //indicates the program that the timer started
+            		nowTimer = now;
+            		timerStarted = true;
+            		System.out.print("second: " + nowTimer);
             	}
-            	if (animal.getStop()) {
+				if( (now-nowTimer)/1000000000 == 1 ) { // check if 1 second has passed
+					nowTimer = now;
+					timerSecs += 1;
+					changeTimer = true;
+				}
+            	if (animal.changeScore()) { // change displayed points
+            		setNumber(animal.getPoints(), scorex, scorey);
+            	}
+            	if ( changeTimer() ) { //change timer number
+            		setNumber(timerSecs, timerx, timery);
+            	}
+            	if (animal.getStop()) { //get win condition
             		winPopup();
             	} 
             }
@@ -121,39 +139,44 @@ public class Levels extends World{
 	}
 	
 	
-	public void start() {
+	public void start(Stage stage) { //starts AnimationTimer and displays game
+		//background.playMusic();
+		
 		createTimer();
-		timer.start();
+		this.timer.start();
 		background.start();
+		
+		showStage(stage);
     }
 
     public void stop() {
-    	timer.stop();
-    	background.stop();
+    	//background.stopMusic();
+    	
+    	this.timer.stop();
+    	background.stop();    	
     }
     
-    public void newBackground() {
+    public void newBackground() { // create new background for every stage
     	this.background = new MyStage();
     }
-    
     public MyStage getBackgroundInstance() {
     	return this.background;
     }
     
-    public void setNumber(int n) {
+    
+    public void setNumber(int n, int x, int y) { //set digit sprites for score and timer
     	int shift = 0;
-    	while (n > 0) {
-    		int d = n / 10;
-    		int k = n - d * 10;
-    		n = d;
-    		background.add(new Digit(k, scoredim, scorex - shift, scorey));
-    		shift+=30;
+    	while (n>0) {
+    		int val = n%10;
+    		n = n/10;
+    		background.add(new Digit(val, digDim, x - shift, y)); // display digits from left to right
+    		shift += 30;
     	}
     }
     
+    
     public void winPopup() {
     	System.out.print("STOP: Player has won!");
-    	background.stopMusic();
     	stop();
 		
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -163,11 +186,17 @@ public class Levels extends World{
 		alert.show();
     }
     
-    public boolean changeTimerDigit() {
-		if (changeTimerDigit) {
-			changeTimerDigit = false;
+    public boolean changeTimer() {
+		if (changeTimer) {
+			changeTimer = false;
 			return true;
 		}
 		return false;
 	}
+    
+    public int nanoToSec(long nnSec) { //convert nanoseconds to seconds
+    	int sec = (int)(nnSec/1000000000);
+    	return sec;
+    }
+
 }

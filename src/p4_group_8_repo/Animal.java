@@ -16,9 +16,13 @@ public class Animal extends Actor {
 		background = level.getBackgroundInstance();
 	}
 	
-	//numerical values
+	//x & y values
 	double movementY = 13.3333333*2;
 	double movementX = 10.666666*2;
+	double spawnX = 300;
+	double spawnY = 733.13+movementY;
+	
+	//values
 	int points = 0;
 	int end = 0;
 	int imgSize = 40;
@@ -40,8 +44,8 @@ public class Animal extends Actor {
 	
 	public Animal(String imageLink) {
 		setImage(new Image(imageLink, imgSize, imgSize, true, true));
-		setX(300);
-		setY(733.13+movementY);
+		setX(spawnX);
+		setY(spawnY);
 		Image imgW1 = new Image( img_path + "froggerUp.png", imgSize, imgSize, true, true);
 		Image imgA1 = new Image( img_path + "froggerLeft.png", imgSize, imgSize, true, true);
 		Image imgS1 = new Image( img_path + "froggerDown.png", imgSize, imgSize, true, true);
@@ -130,8 +134,8 @@ public class Animal extends Actor {
 	
 	public void act(long now) {
 		if (getY()<0 || getY()>800) { // Y-movement limitation
-			setX(300);
-			setY(733.13+movementY);
+			setX(spawnX);
+			setY(spawnY);
 		}
 		if ( getX()<0 ) { // X-movement limitation
 			move(movementX*27, 0);
@@ -153,8 +157,8 @@ public class Animal extends Actor {
 				setImage(new Image( img_path + "cardeath3.png", imgSize, imgSize, true, true));
 			}
 			if (death == 4) {
-				setX(300);
-				setY(733.13+movementY);
+				setX(spawnX);
+				setY(spawnY);
 				carDeath = false;
 				death = 0;
 				setImage(new Image( img_path + "froggerUp.png", imgSize, imgSize, true, true));
@@ -183,8 +187,8 @@ public class Animal extends Actor {
 				setImage(new Image( img_path + "waterdeath4.png", imgSize, imgSize , true, true));
 			}
 			if (death == 5) {
-				setX(300);
-				setY(733.13+movementY);
+				setX(spawnX);
+				setY(spawnY);
 				waterDeath = false;
 				death = 0;
 				setImage(new Image( img_path + "froggerUp.png", imgSize, imgSize, true, true));
@@ -235,8 +239,8 @@ public class Animal extends Actor {
 				w=800;
 				getIntersectingObjects(End.class).get(0).setEnd();
 				end++;
-				setX(300);
-				setY(733.13+movementY);
+				setX(spawnX);
+				setY(spawnY);
 			}
 			else if (getY()<413){	waterDeath = true;
 			}
@@ -252,8 +256,8 @@ public class Animal extends Actor {
 				w=800;
 				getIntersectingObjects(End.class).get(0).setEnd();
 				end++;
-				setX(300);
-				setY(733.13+movementY);
+				setX(spawnX);
+				setY(spawnY);
 			}
 		}
 	}//end act method

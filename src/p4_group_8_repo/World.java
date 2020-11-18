@@ -69,10 +69,6 @@ public abstract class World extends Pane {
         };
     }
     
-    public AnimationTimer getTimerInstance() {
-    	return this.timer;
-    }
-    
     public void start() {
     	createTimer();
         timer.start();
@@ -90,6 +86,7 @@ public abstract class World extends Pane {
         getChildren().remove(actor);
     }
 
+    
     public <A extends Actor> List<A> getObjects(Class<A> cls) {
         ArrayList<A> someArray = new ArrayList<A>();
         for (Node n: getChildren()) {
