@@ -10,8 +10,6 @@ public class MainMenu extends Actor{
 	private Levels level = new Levels();
 	private MyStage background;
 	
-	//private Scene mainMenuScene;
-	
 	private int x = 600;
 	private int y = 800;
 	
@@ -28,8 +26,8 @@ public class MainMenu extends Actor{
 	
 	public MainMenu (Stage mainMenu) {
 		setNewBackground();
-		BackgroundImage froggerMenuBackground = new BackgroundImage( img_path + "menu-image2.png");
-		background.add(froggerMenuBackground);
+		BackgroundImage mainMenuBackground = new BackgroundImage( img_path + "menu-image2.png");
+		background.add(mainMenuBackground);
 		//add main menu as part of stage
 		background.add(this);
 		

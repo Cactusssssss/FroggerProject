@@ -16,8 +16,8 @@ public class Levels extends Actor{
 	private String img_path = new String("file:src/p4_group_8_repo/");
 	private Animal animal = new Animal( img_path + "froggerUp.png");
 	private Image froggerIcon = new Image( img_path + "icon-frogger-pixel-512x512.png");
-	private World world;
 	
+	private EndMenu endMenu;
 	private MyStage background;
 	private Stage levelStage;
 	AnimationTimer timer;
@@ -193,6 +193,7 @@ public class Levels extends Actor{
 					nowTimer = now;
 					timerSecs += 1;
 					changeTimer = true;
+					System.out.print("time(s): " + timerSecs + "\n");
 				}
             	if ( animal.changeScore() ) {
             		setNumber(animal.getPoints(), scorex, scorey);
@@ -238,8 +239,9 @@ public class Levels extends Actor{
 	public void start(Stage stage) { //starts AnimationTimer and displays game
 		loopCount = 0;
 		currLevel += 1;
+		background.add(this);
 		
-		while( loopCount < 0 ) {
+		while( loopCount < 4 ) {
 			background.add(new Digit(0, digDim, scorex - (shift*loopCount), scorey));
 			background.add(new Digit(0, digDim, timerx - (shift*loopCount), timery));
 			loopCount += 1 ;
@@ -285,11 +287,15 @@ public class Levels extends Actor{
     	if(!notified) {
     		notified = true;
     		
+    		/*
 	    	Alert alert = new Alert(AlertType.INFORMATION);
 	    	alert.setTitle("Game Over!");
 	    	alert.setHeaderText("Your High Score: " + animal.getPoints() + "!");
 	    	alert.setContentText("Congratulations!!!");
 	    	alert.show();
+	    	*/
+    		
+    		endMenu = new EndMenu(levelStage);
     	}
 		System.out.print("STOP: Player has won!\n");
     }
