@@ -25,7 +25,9 @@ public class MainMenu extends Actor{
 	}
 	
 	public MainMenu (Stage mainMenu) {
+		level.newBackground();
 		setNewBackground();
+		
 		BackgroundImage mainMenuBackground = new BackgroundImage( img_path + "menu-image2.png");
 		background.add(mainMenuBackground);
 		//add main menu as part of stage
@@ -38,13 +40,13 @@ public class MainMenu extends Actor{
     	setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event){
 				if(dispMenu) {
-					if ( event.getCode() == KeyCode.SPACE) {// press space to start(go to lvl_1)
+					if ( event.getCode() == KeyCode.SPACE || event.getCode() == KeyCode.ENTER ) {// press space to start(go to lvl_1)
 						try {
-				    		level.checkLevel(mainMenu);
 							dispMenu = false;
-							System.out.print("Continued!\n");// DEBUG: test continue
+				    		level = new Levels(mainMenu);
 							return;
-						} catch (Exception e) {
+						} 
+						catch (Exception e) {
 							System.out.print("ERROR: Unable to continue to Level 1\n");
 							e.printStackTrace();
 						}

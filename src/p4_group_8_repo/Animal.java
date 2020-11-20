@@ -34,7 +34,7 @@ public class Animal extends Actor {
 	
 	//for debugging
 	private boolean godMode = true;
-	private int end = 0;
+	private int end = 5;
 	
 	ArrayList<End> inter = new ArrayList<End>();
 	public Animal(String imageLink) {
@@ -243,7 +243,7 @@ public class Animal extends Actor {
 			if (getIntersectingObjects(End.class).size() >= 1) {
 				inter = (ArrayList<End>) getIntersectingObjects(End.class);
 				if (getIntersectingObjects(End.class).get(0).isActivated()) {
-					end--;
+					end -= 1;
 					points-=50;
 				}
 				points+=50;
@@ -259,7 +259,7 @@ public class Animal extends Actor {
 	
 	
 	public boolean getStopBool() {
-		return (end==5);
+		return (end>=5);
 	}
 	public int getStopInt() {
 		return end;
