@@ -3,13 +3,10 @@ package p4_group_8_repo;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-
 
 public class Levels extends Actor{
 	//file path and icon image declaration
@@ -232,7 +229,7 @@ public class Levels extends Actor{
 	            		setNumber(timerSecs, timerx, timery);
 	            	}
 	            	if (animal.getStopBool() && (currLevel == finalLevel) ) { //get current stage win boolean
-	            		winPopup();
+	            		gameOver();
 	            	}else if( animal.getStopBool() ){
 	            		try {
 							nextLevel();
@@ -343,20 +340,11 @@ public class Levels extends Actor{
     	}
     }
     
-    // won the game
-    public void winPopup() {
+    // goes to end menu screen
+    public void gameOver() {
     	stop();
     	if(!notified) {
     		notified = true;
-    		
-    		/*
-	    	Alert alert = new Alert(AlertType.INFORMATION);
-	    	alert.setTitle("Game Over!");
-	    	alert.setHeaderText("Your High Score: " + animal.getPoints() + "!");
-	    	alert.setContentText("Congratulations!!!");
-	    	alert.show();
-	    	*/
-    		
     		newBackground();
     		endMenu = new EndMenu(levelStage);
     	}
