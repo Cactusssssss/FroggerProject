@@ -17,7 +17,7 @@ public class Animal extends Actor {
 	double spawnY = 733.13+movementY;
 	
 	//values
-	int points = 0;
+	private int points = 0;
 	int imgSize = 40;
 	int death = 0;
 	double w = 800; // width
@@ -271,6 +271,9 @@ public class Animal extends Actor {
 	
 	public int getPoints() {
 		return points;
+	}
+	public void setPoints(int points) {
+		this.points = points;
 	}
 	
 	public boolean changeScore() {

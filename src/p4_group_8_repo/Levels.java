@@ -14,8 +14,8 @@ import javafx.stage.Stage;
 public class Levels extends Actor{
 	//file path and icon image declaration
 	private String img_path = new String("file:src/p4_group_8_repo/");
-	private Animal animal = new Animal( img_path + "froggerUp.png");
 	private Image froggerIcon = new Image( img_path + "icon-frogger-pixel-512x512.png");
+	Animal animal = new Animal( img_path + "froggerUp.png");
 	
 	private EndMenu endMenu;
 	private MyStage background;
@@ -29,22 +29,24 @@ public class Levels extends Actor{
 	
 	//score variables
 	private int scorex = 360;
-	private int scorey = 50;
+	private int scorey = 35;
 	//timer variables
 	private int timerx = 150;
-	private int timery = 50;
+	private int timery = 35;
 	private long nowTimer = 0;
 	private int timerSecs = 0;
 	//
-	private int shift = 30;
 	private int loopCount = 0;
-	private int digDim = 30;
+	int digDim = 35;
+	int digShift = 30;
 	
 	//input variables
 	String inputWords;
-	private int wordX = 30;
-	private int wordY = 329;
-	private int worDim = 30;
+	int wordX = 100;
+	int wordY = 550;
+	int worDim = 35;
+	int wordShift = 30;
+	int maxWordLength = 0;
 	
 	//change finalLevel when new level is added
 	private int currLevel = 0;
@@ -86,7 +88,7 @@ public class Levels extends Actor{
 		try {
 			checkLevel(stage);
 		} catch (Exception e) {
-			System.out.print("ERROR: Line 83: Cannot call checkLevel()");
+			System.out.print("ERROR: Line 91: Cannot call checkLevel()");
 			//e.printStackTrace();
 		}
 		
@@ -241,7 +243,7 @@ public class Levels extends Actor{
 	            	}
             	}// end if
             	if ( changeWord() ) {
-            		setWord( inputWords, wordX, wordY);
+            		setWord( inputWords, maxWordLength, wordX, wordY);
             	}
             }
         };
@@ -269,13 +271,15 @@ public class Levels extends Actor{
 		background.add(this);
 		currLevel += 1;
 		
-		//print placceholder score and words
+		//print placeholder score and words
 		loopCount = 0;
 		while( loopCount < 4 ) {
-			background.add(new Digit(0, digDim, scorex - (shift*loopCount), scorey));
-			background.add(new Digit(0, digDim, timerx - (shift*loopCount), timery));
+			background.add(new Digit(0, digDim, scorex - (digShift*loopCount), scorey));
+			background.add(new Digit(0, digDim, timerx - (digShift*loopCount), timery));
 			loopCount += 1 ;
 		}
+		setWord("timer", 5, 40, 5);
+		setWord("score", 5, 250, 5);
 		
 		//create timer and show game window
 		background.playMusic();
@@ -323,19 +327,24 @@ public class Levels extends Actor{
     	while (n>0) {
     		int val = n%10;
     		n = n/10;
-    		background.add(new Digit(val, digDim, x - (shift*loopCount), y)); // display digits from left to right
+    		background.add(new Digit(val, digDim, x - (digShift*loopCount), y)); // display digits from left to right
     		loopCount += 1;
     	}
     }
-    public void setWord(String string, int x, int y) { //set digit sprites for score and timer
-    	for ( int count=0 ;  count< string.length(); count++) {
-    		background.add( new Word(string.substring(count, count+1), worDim, x + (shift*(count+1)), y) ); // display digits from left to right
+    public void setWord(String string, int maxWordLength, int x, int y) { //set digit sprites for score and timer
+    	int count = 0;
+    	while ( count < string.length() ) {
+    		background.add( new Word(string.substring(count, count+1), worDim, x + (wordShift*count), y) ); // display digits from left to right
+    		count += 1;
+    	}
+    	while ( count < maxWordLength ) {
+    		background.add( new Word( "-" , worDim, x + (wordShift*count), y) );
+    		count += 1;
     	}
     }
     
     // won the game
-    public void winPopup() { 
-    	System.out.print("STOP: Player has won!\n");
+    public void winPopup() {
     	stop();
     	if(!notified) {
     		notified = true;
