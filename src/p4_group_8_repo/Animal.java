@@ -36,7 +36,7 @@ public class Animal extends Actor {
 	
 	//for debugging
 	private boolean godMode = true;
-	private int end = 5;
+	private int end = 4;
 	
 	ArrayList<End> inter = new ArrayList<End>();
 	public Animal(String imageLink) {

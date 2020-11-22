@@ -37,13 +37,20 @@ public class Levels extends Actor{
 	int digDim = 35;
 	int digShift = 30;
 	
-	//input variables
+	//player keystroke variables
 	String inputWords;
 	int wordX = 100;
 	int wordY = 550;
 	int worDim = 35;
 	int wordShift = 30;
 	int maxWordLength = 0;
+	
+	//icon variables
+	private int iconDim = 40;
+	private int playPauseX = 550;
+	private int playPauseY = 10;
+	private int soundX = 500;
+	private int soundY = 10;
 	
 	//change finalLevel when new level is added
 	private int currLevel = 0;
@@ -93,15 +100,21 @@ public class Levels extends Actor{
 			public void handle(KeyEvent event){
 				if ( event.getCode() == KeyCode.M) {
 					if( muteMusic ) {
+						background.add(new Icon( "soundon.png", iconDim, soundX, soundY ));
+						
 						background.resumeMusic();
 						muteMusic = false;
 					}else {
+						background.add(new Icon( "soundoff.png", iconDim, soundX, soundY ));
+						
 						background.pauseMusic();
 						muteMusic = true;
 					}
 				}
 				if ( event.getCode() == KeyCode.P) { // pause level
 					if( animal.gamePaused ) {
+						background.add(new Icon( "pause.png", iconDim, playPauseX, playPauseY ));
+						
 						background.resumeMusic();
 						animal.gamePaused = false;
 						
@@ -110,6 +123,8 @@ public class Levels extends Actor{
 						timer.start();
 						background.start();
 					}else {
+						background.add(new Icon( "play.png", iconDim, playPauseX, playPauseY ));
+						
 						background.pauseMusic();
 						animal.gamePaused = true;
 						
@@ -227,7 +242,6 @@ public class Levels extends Actor{
 					if( nanoToSec(now-nowTimer) == 1 ) { // check if 1 second has passed
 						nowTimer = now;
 						timerSecs += 1;
-						System.out.print("Time: "+timerSecs+" "+now+"\n");//delete later
 						changeTimer = true;
 					}
 	            	if ( animal.changeScore() ) {
@@ -285,6 +299,8 @@ public class Levels extends Actor{
 		}
 		setWord("timer", 5, 40, 5);
 		setWord("score", 5, 250, 5);
+		background.add(new Icon( "pause.png", iconDim, playPauseX, playPauseY ));
+		background.add(new Icon( "soundon.png", iconDim, soundX, soundY ));
 		
 		//create timer and show game window
 		background.playMusic();
