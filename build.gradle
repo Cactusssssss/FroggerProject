@@ -9,6 +9,9 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.9'
 }
 
+group 'FroggerProject'
+version '1.0-SNAPSHOT'
+
 repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
@@ -24,6 +27,8 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+    
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
 javafx {
@@ -31,4 +36,4 @@ javafx {
 	modules = ['javafx.controls', 'javafx.fxml', 'javafx.base', 'javafx.media']
 }
 
-mainClassName = 'Main.java'
+mainClassName = 'FroggerProject.Main'
