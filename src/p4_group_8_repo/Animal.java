@@ -9,6 +9,7 @@ import javafx.scene.input.KeyEvent;
 
 public class Animal extends Actor {
 	private String img_path = new String("file:src/p4_group_8_repo/");
+	Levels level;
 	
 	//x & y values
 	double movementY = 13.3333333*2;
@@ -16,7 +17,7 @@ public class Animal extends Actor {
 	double spawnX = 300;
 	double spawnY = 733.13+movementY;
 	
-	//values
+	//
 	private int points = 0;
 	int imgSize = 40;
 	int death = 0;
@@ -31,6 +32,7 @@ public class Animal extends Actor {
 	boolean stop = false;
 	boolean changeScore = false;
 	boolean muteMusic = false;
+	boolean gamePaused = false;
 	
 	//for debugging
 	private boolean godMode = true;
@@ -52,79 +54,83 @@ public class Animal extends Actor {
 		
 		setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event){
-				if (noMove) {
-				}else{
-					if (second) {
-						if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {
+				if( !gamePaused ) {
+					if (noMove) {
+					}else{
+						if (second) {
+							if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {
+				                move(0, -movementY);
+				                changeScore = false;
+				                setImage(imgW1);
+				                second = false;
+				            }else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {	            	
+				            	move(-movementX, 0);
+				            	setImage(imgA1);
+				            	second = false;
+				            }else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {	            	
+				            	move(0, movementY);
+				            	setImage(imgS1);
+				            	second = false;
+				            }else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {	            	
+				            	move(movementX, 0);
+				            	setImage(imgD1);
+				            	second = false;
+				            }
+						}else if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {	            	
 			                move(0, -movementY);
-			                changeScore = false;
-			                setImage(imgW1);
-			                second = false;
+			                setImage(imgW2);
+			                second = true;
 			            }else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {	            	
 			            	move(-movementX, 0);
-			            	setImage(imgA1);
-			            	second = false;
+			            	setImage(imgA2);
+			            	second = true;
 			            }else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {	            	
 			            	move(0, movementY);
-			            	setImage(imgS1);
-			            	second = false;
+			            	setImage(imgS2);
+			            	second = true;
 			            }else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {	            	
 			            	move(movementX, 0);
-			            	setImage(imgD1);
-			            	second = false;
+			            	setImage(imgD2);
+			            	second = true;
 			            }
-					}else if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {	            	
-		                move(0, -movementY);
-		                setImage(imgW2);
-		                second = true;
-		            }else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {	            	
-		            	move(-movementX, 0);
-		            	setImage(imgA2);
-		            	second = true;
-		            }else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {	            	
-		            	move(0, movementY);
-		            	setImage(imgS2);
-		            	second = true;
-		            }else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {	            	
-		            	move(movementX, 0);
-		            	setImage(imgD2);
-		            	second = true;
-		            }
+					}
 				}
 			}
 		});
 		setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event) {
-				if (noMove) {
-				}else {
-				if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {	  
-					if (getY() < w) {
-						changeScore = true;
-						w = getY();
-						points+=10;
+				if( !gamePaused ) {
+					if (noMove) {
+					}else {
+					if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {	  
+						if (getY() < w) {
+							changeScore = true;
+							w = getY();
+							points+=10;
+						}
+		                move(0, -movementY);
+		                setImage(imgW1);
+		                second = false;
+		            }
+		            else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {	            	
+		            	move(-movementX, 0);
+		            	setImage(imgA1);
+		            	second = false;
+		            }
+		            else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {	            	
+		            	move(0, movementY);
+		            	setImage(imgS1);
+		            	second = false;
+		            }
+		            else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {	            	
+		            	move(movementX, 0);
+		            	setImage(imgD1);
+		            	second = false;
+		            }
 					}
-	                move(0, -movementY);
-	                setImage(imgW1);
-	                second = false;
-	            }
-	            else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {	            	
-	            	move(-movementX, 0);
-	            	setImage(imgA1);
-	            	second = false;
-	            }
-	            else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {	            	
-	            	move(0, movementY);
-	            	setImage(imgS1);
-	            	second = false;
-	            }
-	            else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {	            	
-	            	move(movementX, 0);
-	            	setImage(imgD1);
-	            	second = false;
-	            }
 				}
 			}
-		}); 
+		});
 	}
 	
 	public void act(long now) {

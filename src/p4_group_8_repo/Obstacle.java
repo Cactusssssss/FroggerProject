@@ -3,6 +3,7 @@ package p4_group_8_repo;
 import javafx.scene.image.Image;
 
 public class Obstacle extends Actor {
+	private String img_path = new String("file:src/p4_group_8_repo/");
 	private int speed;
 
 	public void act(long now) {
@@ -14,7 +15,7 @@ public class Obstacle extends Actor {
 	}
 	
 	public Obstacle(String imageLink, int xpos, int ypos, int s, int w, int h) {
-		setImage(new Image(imageLink, w,h, true, true));
+		setImage(new Image(img_path + imageLink, w,h, true, true));
 		setX(xpos);
 		setY(ypos);
 		speed = s;

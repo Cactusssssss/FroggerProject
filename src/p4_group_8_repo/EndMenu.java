@@ -9,15 +9,14 @@ import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 
 //javafx libraries
-import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 
 public class EndMenu extends Actor{
 	private String img_path = new String("file:src/p4_group_8_repo/");
 	private Levels level = new Levels();
 	private MyStage background;
+	private Icon pointer;
 	
 	//variables for keyStroke detection
 	private String keyStrokes = new String();
@@ -47,7 +46,7 @@ public class EndMenu extends Actor{
 	
 	public EndMenu (Stage endMenu) {
 		setNewBackground();
-		BackgroundImage endMenuBackground = new BackgroundImage( img_path + "game-over-menu.png");
+		BackgroundImage endMenuBackground = new BackgroundImage( "game-over-menu.png");
 		background.add(endMenuBackground);
 		//add end menu as part of stage
 		background.add(this);
@@ -89,9 +88,6 @@ public class EndMenu extends Actor{
 	}
 	
 	public void changeWord(Stage stage) {
-		//System.out.print("word count: " + wordCount +"\n");
-		//System.out.print("     input: "+keyStrokes +"\n");
-		
 		level.inputWords = keyStrokes;
 		level.changeWord = true;
 		level.showStage(stage);
@@ -103,13 +99,12 @@ public class EndMenu extends Actor{
 	
 	public void checkHighScore() {
 		//start only if inserting highscore is needed
-		level.gamePaused = true;
+		level.animal.gamePaused = true;
 		level.createTimer();
 		level.timer.start();
 				
 		level.setWord("hiscores", 7, 175, 130);
 		
-		//writeFile();
 		readFile();
 	}
 	private void writeFile(String string) {
@@ -120,12 +115,11 @@ public class EndMenu extends Actor{
 			
 			fileWriter.close();
 		} catch (FileNotFoundException e) {
-			System.out.print("ERROR: Line 110: Unable to write file");
+			System.out.print("ERROR: Line 120: Unable to write file");
 			//e.printStackTrace();
 		}
 	}
 	private void readFile() {
-		level.animal.setPoints(11);// delete later
 		int newPlayerScore = level.animal.getPoints();
 		
 		level.worDim = 30;
@@ -153,7 +147,8 @@ public class EndMenu extends Actor{
 					newHighScore = true;
 					level.wordY = 200 + (35*loopCount);
 					
-					background.add(new Word( "pointer", 30, 75, 200 + (35*loopCount) ) ); // add pointer indicator
+					pointer = new Icon("pointer.png", 30, 75, 200 + (35*loopCount) );// add pointer indicator
+					background.add( pointer ); 
 					level.setNumber(newPlayerScore, 470, 200 + (35*loopCount));
 					loopCount += 1;
 					level.setWord(playerName, 10, 100, 200 + (35*loopCount));
@@ -172,8 +167,8 @@ public class EndMenu extends Actor{
 				gameOverAlert();
 			}
         } catch (Exception e) {
-        	System.out.print("ERROR: Line 172: Unable to read file");
-            e.printStackTrace();
+        	System.out.print("ERROR: Line 168: Unable to read file");
+            //e.printStackTrace();
         }
 	}
 	private void insertNewHiScore() {
@@ -220,7 +215,7 @@ public class EndMenu extends Actor{
 			fileReader.close();
 			
 		}catch (Exception e) {
-        	System.out.print("ERROR: Line 218: Unable to read file");
+        	System.out.print("ERROR: Line 216: Unable to read file");
             e.printStackTrace();
         }
 		
@@ -251,6 +246,7 @@ public class EndMenu extends Actor{
         confirm.setTitle("Confirm Name");
         confirm.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
+            	background.remove( pointer );
             	keyStrokes = keyStrokes.replace(" ", "-");
 				insertNewHiScore();
 				newHighScore = false;

@@ -6,7 +6,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class MainMenu extends Actor{
-	private String img_path = new String("file:src/p4_group_8_repo/");
 	private Levels level = new Levels();
 	private MyStage background;
 	
@@ -25,10 +24,11 @@ public class MainMenu extends Actor{
 	}
 	
 	public MainMenu (Stage mainMenu) {
+		//set new MyStage instance and add background image
 		level.newBackground();
 		setNewBackground();
 		
-		BackgroundImage mainMenuBackground = new BackgroundImage( img_path + "menu-image2.png");
+		BackgroundImage mainMenuBackground = new BackgroundImage( "menu-image2.png" );
 		background.add(mainMenuBackground);
 		//add main menu as part of stage
 		background.add(this);

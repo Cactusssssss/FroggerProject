@@ -55,9 +55,8 @@ public class Levels extends Actor{
 	private boolean timerStarted = false;
 	private boolean muteMusic = false;
 	private boolean notified = false;
-	boolean gamePaused = false;
-	
 	//for debugging use
+	
 	private int resetEndValue = animal.getStopInt();
 
 	
@@ -102,12 +101,20 @@ public class Levels extends Actor{
 					}
 				}
 				if ( event.getCode() == KeyCode.P) { // pause level
-					if( gamePaused ) {
+					if( animal.gamePaused ) {
 						background.resumeMusic();
-						gamePaused = false;
+						animal.gamePaused = false;
+						
+						timerStarted = false;
+						createTimer();
+						timer.start();
+						background.start();
 					}else {
 						background.pauseMusic();
-						gamePaused = true;
+						animal.gamePaused = true;
+						
+						timer.stop();
+						background.stop();
 					}
 				}
 			}
@@ -117,18 +124,18 @@ public class Levels extends Actor{
 	//Level creation
 	public void lvl_1(Stage stage_1) throws Exception{
 		//set new background instance & background image
-		BackgroundImage froggerBackground = new BackgroundImage( img_path + "frog background2.png");
+		BackgroundImage froggerBackground = new BackgroundImage( "frog background2.png");
 		background.add(froggerBackground);
 			
 		//logs
-		background.add(new Log( img_path + "logs.png", 300, 0, 276, -2));
-		background.add(new Log( img_path + "logs.png", 300, 400, 276, -2));
-		background.add(new Log( img_path + "log3.png", 150, 0, 166, 0.75));
-		background.add(new Log( img_path + "log3.png", 150, 220, 166, 0.75));
-		background.add(new Log( img_path + "log3.png", 150, 440, 166, 0.75));
-		background.add(new Log( img_path + "log3.png", 150, 50, 329, 0.75));
-		background.add(new Log( img_path + "log3.png", 150, 270, 329, 0.75));
-		background.add(new Log( img_path + "log3.png", 150, 490, 329, 0.75));
+		background.add(new Log( "logs.png", 300, 0, 276, -2));
+		background.add(new Log( "logs.png", 300, 400, 276, -2));
+		background.add(new Log( "log3.png", 150, 0, 166, 0.75));
+		background.add(new Log( "log3.png", 150, 220, 166, 0.75));
+		background.add(new Log( "log3.png", 150, 440, 166, 0.75));
+		background.add(new Log( "log3.png", 150, 50, 329, 0.75));
+		background.add(new Log( "log3.png", 150, 270, 329, 0.75));
+		background.add(new Log( "log3.png", 150, 490, 329, 0.75));
 
 		//turtles
 		background.add(new Turtle(500, 376, -1, 130, 130));
@@ -146,18 +153,18 @@ public class Levels extends Actor{
 		background.add(new End(141 + 141-13+141-13+141-13+3,96));
 			
 		//truck obstacles
-		background.add(new Obstacle( img_path + "truck1Right.png", 0, 649, 1, 120, 120));
-		background.add(new Obstacle( img_path + "truck1Right.png", 300, 649, 1, 120, 120));
-		background.add(new Obstacle( img_path + "truck1Right.png", 600, 649, 1, 120, 120));
-		background.add(new Obstacle( img_path + "truck2Right.png", 0, 540, 1, 200, 200));
-		background.add(new Obstacle( img_path + "truck2Right.png", 500, 540, 1, 200, 200));
+		background.add(new Obstacle( "truck1Right.png", 0, 649, 1, 120, 120));
+		background.add(new Obstacle( "truck1Right.png", 300, 649, 1, 120, 120));
+		background.add(new Obstacle( "truck1Right.png", 600, 649, 1, 120, 120));
+		background.add(new Obstacle( "truck2Right.png", 0, 540, 1, 200, 200));
+		background.add(new Obstacle( "truck2Right.png", 500, 540, 1, 200, 200));
 			
 		//car obstacles
-		background.add(new Obstacle( img_path + "car1Left.png", 100, 597, -1, 50, 50));
-		background.add(new Obstacle( img_path + "car1Left.png", 250, 597, -1, 50, 50));
-		background.add(new Obstacle( img_path + "car1Left.png", 400, 597, -1, 50, 50));
-		background.add(new Obstacle( img_path + "car1Left.png", 550, 597, -1, 50, 50));
-		background.add(new Obstacle( img_path + "car1Left.png", 500, 490, -5, 50, 50));
+		background.add(new Obstacle( "car1Left.png", 100, 597, -1, 50, 50));
+		background.add(new Obstacle( "car1Left.png", 250, 597, -1, 50, 50));
+		background.add(new Obstacle( "car1Left.png", 400, 597, -1, 50, 50));
+		background.add(new Obstacle( "car1Left.png", 550, 597, -1, 50, 50));
+		background.add(new Obstacle( "car1Left.png", 500, 490, -5, 50, 50));
 		
 		//set & start game (compulsory)
 		setScene(background, x, y);
@@ -166,18 +173,18 @@ public class Levels extends Actor{
 	
 	public void lvl_2(Stage stage_2) throws Exception{
 		//set new background instance & background image
-		BackgroundImage froggerBackground = new BackgroundImage( img_path + "frog background2.png");
+		BackgroundImage froggerBackground = new BackgroundImage( "frog background2.png" );
 		background.add(froggerBackground);
 			
 		//logs
-		background.add(new Log( img_path + "logs.png", 300, 0, 276, -2));
-		background.add(new Log( img_path + "logs.png", 300, 400, 276, -2));
-		background.add(new Log( img_path + "log3.png", 150, 0, 166, 0.75));
-		background.add(new Log( img_path + "log3.png", 150, 220, 166, 0.75));
-		background.add(new Log( img_path + "log3.png", 150, 440, 166, 0.75));
-		background.add(new Log( img_path + "log3.png", 150, 50, 329, 0.75));
-		background.add(new Log( img_path + "log3.png", 150, 270, 329, 0.75));
-		background.add(new Log( img_path + "log3.png", 150, 490, 329, 0.75));
+		background.add(new Log( "logs.png", 300, 0, 276, -2));
+		background.add(new Log( "logs.png", 300, 400, 276, -2));
+		background.add(new Log( "log3.png", 150, 0, 166, 0.75));
+		background.add(new Log( "log3.png", 150, 220, 166, 0.75));
+		background.add(new Log( "log3.png", 150, 440, 166, 0.75));
+		background.add(new Log( "log3.png", 150, 50, 329, 0.75));
+		background.add(new Log( "log3.png", 150, 270, 329, 0.75));
+		background.add(new Log( "log3.png", 150, 490, 329, 0.75));
 
 		//turtles
 		background.add(new Turtle(500, 376, -1, 130, 130));
@@ -212,14 +219,15 @@ public class Levels extends Actor{
 	public void createTimer() {
 		this.timer = new AnimationTimer() {
             public void handle(long now) {
-            	if( !gamePaused ) {
-	            	if( !timerStarted ) { //indicates the program that the timer started
+            	if( !animal.gamePaused ) {
+	            	if( !timerStarted ) { //tells the program that the timer started
 	            		nowTimer = now;
 	            		timerStarted = true;
 	            	}
 					if( nanoToSec(now-nowTimer) == 1 ) { // check if 1 second has passed
 						nowTimer = now;
 						timerSecs += 1;
+						System.out.print("Time: "+timerSecs+" "+now+"\n");//delete later
 						changeTimer = true;
 					}
 	            	if ( animal.changeScore() ) {

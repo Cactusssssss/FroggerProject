@@ -3,7 +3,8 @@ package p4_group_8_repo;
 import javafx.scene.image.Image;
 
 public class Log extends Actor {
-
+	private String img_path = new String("file:src/p4_group_8_repo/");
+	
 	private double speed;
 	public void act(long now) {
 		move(speed , 0);
@@ -14,7 +15,7 @@ public class Log extends Actor {
 	}
 	
 	public Log(String imageLink, int size, int xpos, int ypos, double s) {
-		setImage(new Image(imageLink, size,size, true, true));
+		setImage(new Image(img_path + imageLink, size, size, true, true));
 		setX(xpos);
 		setY(ypos);
 		speed = s;
