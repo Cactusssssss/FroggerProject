@@ -13,7 +13,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 public class EndMenu extends Actor{
-	private String img_path = new String("file:src/p4_group_8_repo/");
 	private Levels level = new Levels();
 	private MyStage background;
 	private Icon pointer;
