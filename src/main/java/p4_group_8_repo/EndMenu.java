@@ -45,7 +45,7 @@ public class EndMenu extends Actor{
 	
 	public EndMenu (Stage endMenu) {
 		setNewBackground();
-		BackgroundImage endMenuBackground = new BackgroundImage( "game-over-menu.png");
+		BackgroundImage endMenuBackground = new BackgroundImage( "game-over-menu.png" );
 		background.add(endMenuBackground);
 		//add end menu as part of stage
 		background.add(this);

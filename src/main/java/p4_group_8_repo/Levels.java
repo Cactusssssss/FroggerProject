@@ -96,9 +96,9 @@ public class Levels extends Actor{
 		}
 		
 		//shortcut keys
-		setOnKeyPressed(new EventHandler<KeyEvent>() { // mute
+		setOnKeyPressed(new EventHandler<KeyEvent>() { 
 			public void handle(KeyEvent event){
-				if ( event.getCode() == KeyCode.M) {
+				if ( event.getCode() == KeyCode.M) { // mute music
 					if( muteMusic ) {
 						background.add(new Icon( "soundon.png", iconDim, soundX, soundY ));
 						
