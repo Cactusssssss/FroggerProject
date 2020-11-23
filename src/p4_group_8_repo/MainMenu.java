@@ -28,7 +28,7 @@ public class MainMenu extends Actor{
 		level.newBackground();
 		setNewBackground();
 		
-		BackgroundImage mainMenuBackground = new BackgroundImage( "menu-image2.png" );
+		BackgroundImage mainMenuBackground = new BackgroundImage( "menu-image3.png" );
 		background.add(mainMenuBackground);
 		//add main menu as part of stage
 		background.add(this);
