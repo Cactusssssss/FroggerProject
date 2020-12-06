@@ -1,3 +1,13 @@
+/**
+ * WetTurtle class contains turtle platform that switches images from by using a timer
+ * 
+ * usage:
+ * WetTurtle wetturtle = new WetTurtle( int x, int y, int speed, int image-width, in image-height );
+ * e.g:
+ * WetTurtle wturtle = new WetTurtle(700, 376, -1, 130, 130);
+ * 
+ */
+
 package p4_group_8_repo;
 
 import javafx.scene.image.Image;

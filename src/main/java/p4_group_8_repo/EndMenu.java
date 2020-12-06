@@ -1,3 +1,12 @@
+/**
+ * EndMenu class contains methods for highscore checking, highscore entering and popups
+ * 
+ * usage:
+ * instantiate to create a new end menu instance
+ * EndMenu endmenu = new EndMenu(Stage stage);
+ * 
+ *
+ */
 package p4_group_8_repo;
 
 import java.io.*;
@@ -119,7 +128,7 @@ public class EndMenu extends Actor{
 		}
 	}
 	private void readFile() {
-		level.animal.setPoints(999);
+		//level.animal.setPoints(999); //set points to test highscore system
 		int newPlayerScore = level.animal.getPoints();
 		
 		level.worDim = 30;

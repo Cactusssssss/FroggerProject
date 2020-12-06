@@ -1,3 +1,18 @@
+/**
+ * Animal class contains methods that displays the frogger player, hitbox detection, death logic, player movement logic
+ * and player respawn logic
+ * 
+ * Debug tools: 
+ * 1.godMode: when true player collision and death logic is off
+ * 2.end: when end reaches 5 level advances
+ * 
+ * Usage:
+ * instantiate with picture of "froggerUp.png" to create player entity
+ * e.g:
+ * Animal animal = new Animal( "froggerUp.png");
+ * 
+ *
+ */
 package p4_group_8_repo;
 
 import java.util.ArrayList;
@@ -7,14 +22,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-/**
- * 
- * Animal class contains frogger player, hitbox detection, death logic, player movement logic
- * Debug tools: godMode variable true, change value of end
- * 
- * @author Pang CH
- *
- */
 public class Animal extends Actor {
 	private String img_path = new String("file:src/main/java/p4_group_8_repo/");
 	Levels level;

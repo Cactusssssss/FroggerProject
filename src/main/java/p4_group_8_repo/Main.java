@@ -1,3 +1,7 @@
+/**
+ * Main class starts the game by instantiating MainMenu()
+ * 
+ */
 package p4_group_8_repo;
 
 import javafx.application.Application;

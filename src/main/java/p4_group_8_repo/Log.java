@@ -1,3 +1,13 @@
+/**
+ * Log class contains methods to display any log platform images and moves it according to the speed specified
+ * 
+ * usage:
+ * Log log= new Log( "log.png", int size, int x, int y, double speed);
+ * e.g:
+ * Log log1 = new Log( "logs.png", 300, 0, 276, -2);
+ * 
+ *
+ */
 package p4_group_8_repo;
 
 import javafx.scene.image.Image;

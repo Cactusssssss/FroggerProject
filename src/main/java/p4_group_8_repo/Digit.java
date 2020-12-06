@@ -1,3 +1,13 @@
+/**
+ * digit class contains methods to display individual number sprites from a preset directory
+ * 
+ * usage:
+ * Digit( int number, int dimensions, int x, int y);
+ * e.g:
+ * Digit(9, 25, 300, 300));
+ * 
+ *
+ */
 package p4_group_8_repo;
 
 import javafx.scene.image.Image;

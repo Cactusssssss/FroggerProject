@@ -1,3 +1,10 @@
+/**
+ * MyStage class contains methods for music selection, music playing and music pausing
+ * 
+ * usage:
+ * MyStage background = new Mystage();
+ * 
+ */
 package p4_group_8_repo;
 
 import java.io.File;

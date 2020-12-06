@@ -1,3 +1,12 @@
+/**
+ * Obstacle class contains methods for obstacle creation and movement by using a timer
+ * 
+ * usage: 
+ * Obstacle obstacle = new Obstacle( "obstacle.png", int x, int y, int speed, int image-width, int image-height);
+ * e.g:
+ * Obstacle truck1 = new Obstacle( "truck1Right.png", 0, 649, 1, 120, 120);
+ *
+ */
 package p4_group_8_repo;
 
 import javafx.scene.image.Image;

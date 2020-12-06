@@ -1,3 +1,13 @@
+/**
+ * End class contains methods to create goal zones for player
+ * 
+ * usage:
+ * End end = new End(int x, in y);
+ * e.g:
+ * End end1 = new End(13,96);
+ * 
+ *
+ */
 package p4_group_8_repo;
 
 import javafx.scene.image.Image;

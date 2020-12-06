@@ -1,17 +1,50 @@
+/**
+ * Levels class contains methods to start a level, shortcut keys( p and m ), level progression, set number and set words
+ * Levels class is called from MainMenu class
+ * 
+ * usage:
+ * new levels can be added by creating new classes by copying and pasting the template given
+ * 
+ * template:
+ * public void lvl_x(Stage stage_x) throws Exception{
+ *
+ *		setScene(background, x, y);
+ *		start(stage_x);
+ * }
+ * after pasting the template, replace x with a new level value then add a new background first then add new obstacles/turtles/wet turtles/logs
+ * 
+ * e.g:
+ * public void lvl_9(Stage stage_9) throws Exception{
+ *		BackgroundImage froggerBackground = new BackgroundImage( "frog background2.png" );
+ *		background.add(froggerBackground);
+ *		
+ *		background.add(new Log( "log3.png", 150, 490, 329, 0.75));	
+ *		background.add(new Obstacle( "car1Left.png", 500, 690, -6, 50, 50));
+ *
+ *		setScene(background, x, y);
+ *		start(stage_9);
+ * }
+ * 
+ *
+ */
 package p4_group_8_repo;
 
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
+
 public class Levels extends Actor{
 	//file path and icon image declaration
 	private String img_path = new String("file:src/main/java/p4_group_8_repo/");
 	private Image froggerIcon = new Image( img_path + "icon-frogger-pixel-512x512.png");
+	private BackgroundImage pausemenu = new BackgroundImage( "pausemenu.png" );
 	Animal animal = new Animal( img_path + "froggerUp.png");
 	
 	private EndMenu endMenu;
@@ -52,9 +85,6 @@ public class Levels extends Actor{
 	private int soundX = 500;
 	private int soundY = 10;
 	
-	//change finalLevel when new level is added
-	private int currLevel = 0;
-	private int finalLevel = 2; //change for debugging
 	
 	//boolean values
 	private boolean changeTimer = false;
@@ -66,18 +96,29 @@ public class Levels extends Actor{
 	
 	private int resetEndValue = animal.getStopInt();
 
-	
 	public void act(long now) {// not usable unless Levels created as an instance
 	}
 	
+	//change finalLevel when new level is added
+	private int currLevel = 0;
+	private int finalLevel = 3;
+	
 	public void checkLevel(Stage stage) throws Exception{
 		newBackground();
+		//notify new level
+		Alert alert = new Alert(AlertType.INFORMATION);
+		
 		System.out.print("level: "+ (currLevel+1) +"\n");
-		//check and enter a level
-		if (currLevel == 0) {
+		alert.setHeaderText(" Level " + (currLevel+1) );
+    	alert.show();
+		
+		//check and enter next level
+		if (currLevel == 0 ) {
 			lvl_1(stage);
-		}else if( currLevel == 1) {
+		}else if( currLevel == 1 ) {
 			lvl_2(stage);
+		}else if( currLevel == 2 ){
+			lvl_3(stage);
 		}else {		
 			System.out.print("ERROR: Line 71: Can enter next level\n");
 		}
@@ -122,6 +163,7 @@ public class Levels extends Actor{
 						createTimer();
 						timer.start();
 						background.start();
+						background.remove(pausemenu);
 					}else {
 						background.add(new Icon( "play.png", iconDim, playPauseX, playPauseY ));
 						
@@ -130,18 +172,48 @@ public class Levels extends Actor{
 						
 						timer.stop();
 						background.stop();
+						background.add(pausemenu);
 					}
 				}
 			}
 		});
 	}
 	
-	//Level creation
+	//different levels
 	public void lvl_1(Stage stage_1) throws Exception{
 		//set new background instance & background image
-		BackgroundImage froggerBackground = new BackgroundImage( "frog background2.png");
+		BackgroundImage froggerBackground = new BackgroundImage( "frog background2.png" );
 		background.add(froggerBackground);
-			
+		
+		//logs
+		background.add(new Log( "logs.png", 300, 500, 376, 2));
+		background.add(new Log( "logs.png", 300, 0, 276, -2));
+		background.add(new Log( "logs.png", 300, 400, 276, -2));
+		background.add(new Log( "logs.png", 300, 300, 217, 1.5));
+		background.add(new Log( "log3.png", 150, 0, 166, 0.75));
+		background.add(new Log( "log3.png", 150, 220, 166, 0.75));
+		background.add(new Log( "log3.png", 150, 440, 166, 0.75));
+		background.add(new Log( "log3.png", 150, 50, 329, 0.75));
+		background.add(new Log( "log3.png", 150, 270, 329, 0.75));
+		background.add(new Log( "log3.png", 150, 490, 329, 0.75));
+		
+		//car obstacles
+		background.add(new Obstacle( "car1Left.png", 500, 690, -6, 50, 50));
+		background.add(new Obstacle( "car1Right.png", 310, 640, 6, 50, 50));
+		background.add(new Obstacle( "car1Left.png", 100, 597, -6, 50, 50));
+		background.add(new Obstacle( "car1Right.png", 200, 540, 6, 50, 50));
+		background.add(new Obstacle( "car1Left.png", 300, 490, -6, 50, 50));
+		
+		//set & start game (compulsory)
+		setScene(background, x, y);
+		start(stage_1);
+	}
+	
+	public void lvl_2(Stage stage_2) throws Exception{
+		//set new background instance & background image
+		BackgroundImage froggerBackground = new BackgroundImage( "frog background2.png" );
+		background.add(froggerBackground);
+		
 		//logs
 		background.add(new Log( "logs.png", 300, 0, 276, -2));
 		background.add(new Log( "logs.png", 300, 400, 276, -2));
@@ -160,13 +232,6 @@ public class Levels extends Actor{
 		background.add(new WetTurtle(400, 217, -1, 130, 130));
 		background.add(new WetTurtle(200, 217, -1, 130, 130));
 		
-		//objectives
-		background.add(new End(13,96));
-		background.add(new End(141,96));
-		background.add(new End(141 + 141-13,96));
-		background.add(new End(141 + 141-13+141-13+1,96));
-		background.add(new End(141 + 141-13+141-13+141-13+3,96));
-			
 		//truck obstacles
 		background.add(new Obstacle( "truck1Right.png", 0, 649, 1, 120, 120));
 		background.add(new Obstacle( "truck1Right.png", 300, 649, 1, 120, 120));
@@ -183,50 +248,57 @@ public class Levels extends Actor{
 		
 		//set & start game (compulsory)
 		setScene(background, x, y);
-		start(stage_1);
-	}
-	
-	public void lvl_2(Stage stage_2) throws Exception{
-		//set new background instance & background image
-		BackgroundImage froggerBackground = new BackgroundImage( "frog background2.png" );
-		background.add(froggerBackground);
-			
-		//logs
-		background.add(new Log( "logs.png", 300, 0, 276, -2));
-		background.add(new Log( "logs.png", 300, 400, 276, -2));
-		background.add(new Log( "log3.png", 150, 0, 166, 0.75));
-		background.add(new Log( "log3.png", 150, 220, 166, 0.75));
-		background.add(new Log( "log3.png", 150, 440, 166, 0.75));
-		background.add(new Log( "log3.png", 150, 50, 329, 0.75));
-		background.add(new Log( "log3.png", 150, 270, 329, 0.75));
-		background.add(new Log( "log3.png", 150, 490, 329, 0.75));
-
-		//turtles
-		background.add(new Turtle(500, 376, -1, 130, 130));
-		background.add(new Turtle(300, 376, -1, 130, 130));
-		background.add(new WetTurtle(700, 376, -1, 130, 130));
-		background.add(new WetTurtle(600, 217, -1, 130, 130));
-		background.add(new WetTurtle(400, 217, -1, 130, 130));
-		background.add(new WetTurtle(200, 217, -1, 130, 130));
-		
-		//objectives
-		background.add(new End(13,96));
-		background.add(new End(141,96));
-		background.add(new End(141 + 141-13, 96));
-		background.add(new End(141 + 141-13+141-13+1, 96));
-		background.add(new End(141 + 141-13+141-13+141-13+3, 96));
-		
-		//set & start game (compulsory)
-		setScene(background, x, y);
 		start(stage_2);
 	}
 	
 	public void lvl_3(Stage stage_3) throws Exception{
+		//set new background instance & background image
+		BackgroundImage froggerBackground = new BackgroundImage( "frog background2.png" );
+		background.add(froggerBackground);
+		
+		//wet turtles
+		background.add(new WetTurtle(700, 176, -1, 130, 130));
+		background.add(new WetTurtle(500, 176, -1, 130, 130));
+		background.add(new Turtle(300, 176, -1, 130, 130));
+		background.add(new WetTurtle(700, 226, 1, 130, 130));
+		background.add(new WetTurtle(400, 226, 1, 130, 130));
+		background.add(new Turtle(200, 226, 1, 130, 130));
+		background.add(new WetTurtle(700, 326, 1, 130, 130));
+		background.add(new WetTurtle(400, 326, 1, 130, 130));
+		background.add(new Turtle(200, 326, 1, 130, 130));
+		background.add(new WetTurtle(700, 376, -1, 130, 130));
+		background.add(new WetTurtle(500, 376, -1, 130, 130));
+		background.add(new Turtle(300, 376, -1, 130, 130));
+		
+		//logs
+		background.add(new Log( "logs.png", 300, 750, 276, -1));
+		background.add(new Log( "logs.png", 300, 400, 276, -1));
+		background.add(new Log( "logs.png", 300, 50, 276, -1));
+		
+		//obstacles
+		background.add(new Obstacle( "truck2Left.png", 300, 490, -2, 200, 200));
+		background.add(new Obstacle( "truck2Left.png", 80, 490, -2, 200, 200));
+		background.add(new Obstacle( "truck2Left.png", 400, 543, -2, 200, 200));
+		background.add(new Obstacle( "truck2Left.png", 180, 543, -2, 200, 200));
+		background.add(new Obstacle( "truck2Left.png", 500, 590, -2, 200, 200));
+		background.add(new Obstacle( "truck2Left.png", 280, 590, -2, 200, 200));
+		background.add(new Obstacle( "truck2Left.png", 600, 643, -2, 200, 200));
+		background.add(new Obstacle( "truck2Left.png", 380, 643, -2, 200, 200));
+		background.add(new Obstacle( "truck2Left.png", 700, 690, -2, 200, 200));
+		background.add(new Obstacle( "truck2Left.png", 480, 690, -2, 200, 200));
+			
+		//set & start game (compulsory)
+		setScene(background, x, y);
+		start(stage_3);
+	}
+	
+	
+	public void lvl_x(Stage stage_x) throws Exception{ //change x in level_x and stage_x to number
 		//create new level here
 		
 		//set & start game (compulsory)
 		setScene(background, x, y);
-		start(stage_3);
+		start(stage_x);
 	}
 
 	
@@ -285,6 +357,13 @@ public class Levels extends Actor{
 	
 	//start, next and stop levels
 	public void start(Stage stage) {
+		//add objectives
+		background.add(new End(13,96));
+		background.add(new End(141,96));
+		background.add(new End(141 + 141-13, 96));
+		background.add(new End(141 + 141-13+141-13+1, 96));
+		background.add(new End(141 + 141-13+141-13+141-13+3, 96));
+		
 		//add Level & animal to background
 		background.add(animal);
 		background.add(this);

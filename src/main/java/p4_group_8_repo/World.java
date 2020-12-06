@@ -1,5 +1,10 @@
-package p4_group_8_repo;
+/**
+ * World class contians methods for starting and ending timers, key listeners and adding and removing actors
+ * 
+ * 
+ */
 
+package p4_group_8_repo;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,3 +1,13 @@
+/**
+ * Icon class contains methods to create small icon images
+ * 
+ * usage:
+ * Icon icon = new Icon( "icon.png", int size, int x, int y );
+ * e.g:
+ * Icon froggerIcon = new Icon( "soundon.png", 25, 200, 400 );
+ * 
+ *
+ */
 package p4_group_8_repo;
 
 import javafx.scene.image.Image;

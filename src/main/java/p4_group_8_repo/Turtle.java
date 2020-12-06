@@ -1,3 +1,13 @@
+/**
+ * Turtle class contains turtle platform that switches images by using a timer
+ * 
+ * usage:
+ * Turtle turtle = new Turtle( int x, int y, int speed, int image-width, in image-height );
+ * e.g:
+ * Turtle turtle1 = new Turtle(500, 376, -1, 130, 130);
+ * 
+ * 
+ */
 package p4_group_8_repo;
 
 import javafx.scene.image.Image;

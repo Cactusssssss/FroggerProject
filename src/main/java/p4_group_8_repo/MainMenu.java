@@ -1,3 +1,12 @@
+/**
+ * MainMenu class contains methods to start the game and to proceed by instantiating the Levels() class
+ * 
+ * usage:
+ * instantiate to create new MainMenu instance
+ * MainMenu mm = new MainMenu(Stage stage)
+ * 
+ * 
+ */
 package p4_group_8_repo;
 
 import javafx.event.EventHandler;
