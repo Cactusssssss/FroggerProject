@@ -7,6 +7,14 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+/**
+ * 
+ * Animal class contains frogger player, hitbox detection, death logic, player movement logic
+ * Debug tools: godMode variable true, change value of end
+ * 
+ * @author Pang CH
+ *
+ */
 public class Animal extends Actor {
 	private String img_path = new String("file:src/main/java/p4_group_8_repo/");
 	Levels level;

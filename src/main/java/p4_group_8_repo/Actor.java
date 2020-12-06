@@ -5,7 +5,11 @@ import javafx.scene.input.InputEvent;
 
 import java.util.ArrayList;
 
-
+/**
+ * Actor class for other classes to extend
+ * @author Pang CH
+ *
+ */
 public abstract class Actor extends ImageView{
 
     public void move(double dx, double dy) {
