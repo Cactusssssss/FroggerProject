@@ -1,6 +1,8 @@
 /**
  * Main class starts the game by instantiating MainMenu()
  * 
+ * version 0.6.1
+ * 
  */
 package p4_group_8_repo;
 
