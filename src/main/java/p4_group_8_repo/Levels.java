@@ -120,7 +120,7 @@ public class Levels extends Actor{
 		}else if( currLevel == 2 ){
 			lvl_3(stage);
 		}else {		
-			System.out.print("ERROR: Line 71: Can enter next level\n");
+			System.out.print("ERROR: Line 123: Can enter next level\n");
 		}
 	}
 	
@@ -132,14 +132,14 @@ public class Levels extends Actor{
 		try {
 			checkLevel(stage);
 		} catch (Exception e) {
-			System.out.print("ERROR: Line 91: Cannot call checkLevel()");
+			System.out.print("ERROR: Line 135: Cannot call checkLevel()");
 			//e.printStackTrace();
 		}
 		
 		//shortcut keys
 		setOnKeyPressed(new EventHandler<KeyEvent>() { 
 			public void handle(KeyEvent event){
-				if ( event.getCode() == KeyCode.M) { // mute music
+				if ( event.getCode() == KeyCode.M && !(animal.gamePaused) ) { // mute music
 					if( muteMusic ) {
 						background.add(new Icon( "soundon.png", iconDim, soundX, soundY ));
 						
@@ -154,25 +154,27 @@ public class Levels extends Actor{
 				}
 				if ( event.getCode() == KeyCode.P) { // pause level
 					if( animal.gamePaused ) {
+						background.remove(pausemenu);
 						background.add(new Icon( "pause.png", iconDim, playPauseX, playPauseY ));
 						
 						background.resumeMusic();
 						animal.gamePaused = false;
 						
+						background.add(new Icon( "soundon.png", iconDim, soundX, soundY ));
 						timerStarted = false;
 						createTimer();
 						timer.start();
 						background.start();
-						background.remove(pausemenu);
 					}else {
+						background.add(pausemenu);
 						background.add(new Icon( "play.png", iconDim, playPauseX, playPauseY ));
 						
+						background.add(new Icon( "soundoff.png", iconDim, soundX, soundY ));
 						background.pauseMusic();
 						animal.gamePaused = true;
 						
 						timer.stop();
 						background.stop();
-						background.add(pausemenu);
 					}
 				}
 			}
@@ -328,7 +330,7 @@ public class Levels extends Actor{
 	            		try {
 							nextLevel();
 						} catch (Exception e) {
-							System.out.print("ERROR: Line 227:  Unable to call nextlevel()\n");
+							System.out.print("ERROR: Line 333:  Unable to call nextlevel()\n");
 							//e.printStackTrace();
 						}
 	            	}
@@ -397,7 +399,7 @@ public class Levels extends Actor{
 		try {
 			checkLevel( levelStage );
 		} catch (Exception e) {
-			System.out.print("Line 249: ERROR: Unable to enter next level\n");
+			System.out.print("Line 402: ERROR: Unable to enter next level\n");
 			//e.printStackTrace();
 		}
 	}

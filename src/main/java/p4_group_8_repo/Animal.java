@@ -7,7 +7,7 @@
  * 2.end: when end reaches 5 level advances
  * 
  * Usage:
- * instantiate with picture of "froggerUp.png" to create player entity
+ * instantiate with a picture to create player entity
  * e.g:
  * Animal animal = new Animal( "froggerUp.png");
  * 
