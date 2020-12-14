@@ -84,6 +84,7 @@ set CMD_LINE_ARGS=%*
 
 set CLASSPATH=%APP_HOME%\lib\FroggerProject.jar;%APP_HOME%\lib\commons-math3-3.6.1.jar;%APP_HOME%\lib\guava-28.2-jre.jar;%APP_HOME%\lib\javafx-fxml-15-win.jar;%APP_HOME%\lib\javafx-controls-15-win.jar;%APP_HOME%\lib\javafx-controls-15.jar;%APP_HOME%\lib\javafx-media-15-win.jar;%APP_HOME%\lib\javafx-graphics-15-win.jar;%APP_HOME%\lib\javafx-graphics-15.jar;%APP_HOME%\lib\javafx-base-15-win.jar;%APP_HOME%\lib\javafx-base-15.jar;%APP_HOME%\lib\failureaccess-1.0.1.jar;%APP_HOME%\lib\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;%APP_HOME%\lib\jsr305-3.0.2.jar;%APP_HOME%\lib\checker-qual-2.10.0.jar;%APP_HOME%\lib\error_prone_annotations-2.3.4.jar;%APP_HOME%\lib\j2objc-annotations-1.3.jar
 
+
 @rem Execute FroggerProject
 "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %FROGGER_PROJECT_OPTS%  -classpath "%CLASSPATH%" p4_group_8_repo.Main %CMD_LINE_ARGS%
 
