@@ -1,32 +1,3 @@
-/**
- * Levels class contains methods to start a level, shortcut keys( p and m ), level progression, set number and set words
- * Levels class is called from MainMenu class
- * 
- * usage:
- * new levels can be added by creating new classes by copying and pasting the template given
- * 
- * template:
- * public void lvl_x(Stage stage_x) throws Exception{
- *
- *		setScene(background, x, y);
- *		start(stage_x);
- * }
- * after pasting the template, replace x with a new level value then add a new background first then add new obstacles/turtles/wet turtles/logs
- * 
- * e.g:
- * public void lvl_9(Stage stage_9) throws Exception{
- *		BackgroundImage froggerBackground = new BackgroundImage( "frog background2.png" );
- *		background.add(froggerBackground);
- *		
- *		background.add(new Log( "log3.png", 150, 490, 329, 0.75));	
- *		background.add(new Obstacle( "car1Left.png", 500, 690, -6, 50, 50));
- *
- *		setScene(background, x, y);
- *		start(stage_9);
- * }
- * 
- *
- */
 package p4_group_8_repo;
 
 import javafx.animation.AnimationTimer;
@@ -40,6 +11,43 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 
+/**
+ * <p>
+ * Levels class contains methods to start a level, key listeners, level progression detection, number positioning and word positioning
+ * Levels class is called from MainMenu class
+ * </p>
+ * <p>
+ * Usage:
+ * New levels can be added by creating new classes by copying and pasting the template given
+ * </p>
+ * 
+ * <p>
+ * Template:
+ * <pre><code>
+ * public void lvl_x(Stage stage_x) throws Exception{
+ *
+ *		setScene(background, x, y);
+ *		start(stage_x);
+ * }</code></pre>
+ * After pasting the template, replace x with a new level value then add a new background first then add new obstacles/turtles/wet turtles/logs
+ * </p>
+ * 
+ * <p>
+ * An example for a level would be:<pre><code>
+ * </p>
+ * public void lvl_9(Stage stage_9) throws Exception{
+ *		BackgroundImage froggerBackground = new BackgroundImage( "frog background2.png" );
+ *		background.add(froggerBackground);
+ *		
+ *		background.add(new Log( "log3.png", 150, 490, 329, 0.75));	
+ *		background.add(new Obstacle( "car1Left.png", 500, 690, -6, 50, 50));
+ *
+ *		setScene(background, x, y);
+ *		start(stage_9);
+ * }</code></pre>
+ * 
+ *
+ */
 public class Levels extends Actor{
 	//file path and icon image declaration
 	private String img_path = new String("file:src/main/java/p4_group_8_repo/");
@@ -92,7 +100,6 @@ public class Levels extends Actor{
 	private boolean timerStarted = false;
 	private boolean muteMusic = false;
 	private boolean notified = false;
-	//for debugging use
 	
 	private int resetEndValue = animal.getStopInt();
 
@@ -108,6 +115,7 @@ public class Levels extends Actor{
 		//notify new level
 		Alert alert = new Alert(AlertType.INFORMATION);
 		
+		//prints current level number
 		System.out.print("level: "+ (currLevel+1) +"\n");
 		alert.setHeaderText(" Level " + (currLevel+1) );
     	alert.show();
@@ -381,10 +389,14 @@ public class Levels extends Actor{
 		setWord("timer", 5, 40, 5);
 		setWord("score", 5, 250, 5);
 		background.add(new Icon( "pause.png", iconDim, playPauseX, playPauseY ));
-		background.add(new Icon( "soundon.png", iconDim, soundX, soundY ));
 		
 		//create timer and show game window
-		background.playMusic();
+		if( !muteMusic ) {
+			background.add(new Icon( "soundon.png", iconDim, soundX, soundY ));
+			background.playMusic();
+		}else {	
+			background.add(new Icon( "soundoff.png", iconDim, soundX, soundY ));
+		}
 		
 		createTimer();
 		timer.start();
@@ -404,7 +416,9 @@ public class Levels extends Actor{
 		}
 	}
     public void stop() {
-    	background.stopMusic();
+    	if(!muteMusic) {
+    		background.stopMusic();
+    	}
     	
     	timer.stop();
     	background.stop();

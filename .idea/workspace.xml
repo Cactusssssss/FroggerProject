@@ -66,6 +66,32 @@
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="show.unlinked.gradle.project.popup" value="true" />
   </component>
+  <component name="RunManager">
+    <configuration name="FroggerProject [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="run" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.FroggerProject [run]" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -78,21 +104,21 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="981" height="192" key="GridCell.Tab.0.bottom" timestamp="1607603008369">
+    <state width="981" height="192" key="GridCell.Tab.0.bottom" timestamp="1607953772833">
       <screen x="1920" y="0" width="1024" height="768" />
     </state>
-    <state width="981" height="192" key="GridCell.Tab.0.bottom/0.0.1536.864/1920.0.1024.768@1920.0.1024.768" timestamp="1607603008369" />
-    <state width="981" height="192" key="GridCell.Tab.0.center" timestamp="1607603008369">
+    <state width="981" height="192" key="GridCell.Tab.0.bottom/0.0.1536.864/1920.0.1024.768@1920.0.1024.768" timestamp="1607953772833" />
+    <state width="981" height="192" key="GridCell.Tab.0.center" timestamp="1607953772832">
       <screen x="1920" y="0" width="1024" height="768" />
     </state>
-    <state width="981" height="192" key="GridCell.Tab.0.center/0.0.1536.864/1920.0.1024.768@1920.0.1024.768" timestamp="1607603008369" />
-    <state width="981" height="192" key="GridCell.Tab.0.left" timestamp="1607603008368">
+    <state width="981" height="192" key="GridCell.Tab.0.center/0.0.1536.864/1920.0.1024.768@1920.0.1024.768" timestamp="1607953772832" />
+    <state width="981" height="192" key="GridCell.Tab.0.left" timestamp="1607953772832">
       <screen x="1920" y="0" width="1024" height="768" />
     </state>
-    <state width="981" height="192" key="GridCell.Tab.0.left/0.0.1536.864/1920.0.1024.768@1920.0.1024.768" timestamp="1607603008368" />
-    <state width="981" height="192" key="GridCell.Tab.0.right" timestamp="1607603008369">
+    <state width="981" height="192" key="GridCell.Tab.0.left/0.0.1536.864/1920.0.1024.768@1920.0.1024.768" timestamp="1607953772832" />
+    <state width="981" height="192" key="GridCell.Tab.0.right" timestamp="1607953772832">
       <screen x="1920" y="0" width="1024" height="768" />
     </state>
-    <state width="981" height="192" key="GridCell.Tab.0.right/0.0.1536.864/1920.0.1024.768@1920.0.1024.768" timestamp="1607603008369" />
+    <state width="981" height="192" key="GridCell.Tab.0.right/0.0.1536.864/1920.0.1024.768@1920.0.1024.768" timestamp="1607953772832" />
   </component>
 </project>
