@@ -1,18 +1,22 @@
 package p4_group_8_repo;
 
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputEvent;
 
 import java.util.ArrayList;
 
 /**
- * Actor class is to be extended by other classes
+ * Abstract {@code Actor } class contains intersection logic and timer, this class is used as an extension for other classes
  * 
  * @author Pang CH
  *
  */
 public abstract class Actor extends ImageView{
 	
+	/**
+	 * Sets the x and y coordinates of an {@code Actor } class instance
+	 * @param dx Double variable that represents the x movement an {@code Actor } class instance
+	 * @param dy Double variable that represents the y movement an {@code Actor } class instance
+	 */
     public void move(double dx, double dy) {
         setX(getX() + dx);
         setY(getY() + dy);

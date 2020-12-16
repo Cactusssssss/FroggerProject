@@ -13,29 +13,34 @@ import javafx.stage.Stage;
 
 /**
  * <p>
- * Levels class contains methods to start a level, key listeners, level progression detection, number positioning and word positioning
- * Levels class is called from MainMenu class
- * </p>
- * <p>
- * Usage:
- * New levels can be added by creating new classes by copying and pasting the template given
+ * Contains methods to start a level, key listeners, level progression detection, number positioning and word positioning
+ * <br>
+ * {@code Levels } class is instantiated inside the {@code MainMenu } class
  * </p>
  * 
  * <p>
- * Template:
+ * Adding Levels:
+ * New levels can be added by creating new classes by copying and pasting the template given</p>
+ * 
+ * <p>
+ * Template:</p>
  * <pre><code>
  * public void lvl_x(Stage stage_x) throws Exception{
- *
+ * 		background.add(yourBackground);
  *		setScene(background, x, y);
  *		start(stage_x);
  * }</code></pre>
- * After pasting the template, replace x with a new level value then add a new background first then add new obstacles/turtles/wet turtles/logs
+ * <p>
+ * After pasting the template, replace x with a new level variable then add a new background image and obstacles/turtles/wet turtles/logs.
+ * <br>
+ * After adding a new level the local value of finalLevel Int variable has to be incremented
  * </p>
  * 
  * <p>
- * An example for a level would be:<pre><code>
+ * An example for a level would be:
  * </p>
- * public void lvl_9(Stage stage_9) throws Exception{
+ * <pre><code>
+ * public void lvl_9(Stage stage_9){
  *		BackgroundImage froggerBackground = new BackgroundImage( "frog background2.png" );
  *		background.add(froggerBackground);
  *		
@@ -46,6 +51,8 @@ import javafx.stage.Stage;
  *		start(stage_9);
  * }</code></pre>
  * 
+ * 
+ * @author Pang CH
  *
  */
 public class Levels extends Actor{
@@ -53,16 +60,28 @@ public class Levels extends Actor{
 	private String img_path = new String("file:src/main/java/p4_group_8_repo/");
 	private Image froggerIcon = new Image( img_path + "icon-frogger-pixel-512x512.png");
 	private BackgroundImage pausemenu = new BackgroundImage( "pausemenu.png" );
-	Animal animal = new Animal( img_path + "froggerUp.png");
+	/**
+	 * Instantiating a new Animal class with an image which represents the player controlled character
+	 */
+	public Animal animal = new Animal( img_path + "froggerUp.png");
 	
 	private EndMenu endMenu;
 	private MyStage background;
-	Stage levelStage;
-	AnimationTimer timer;
-	Scene scene;
+	private Stage levelStage;
+	private Scene scene;
+	/**
+	 * Declaring AnimationTimer class timer variable
+	 */
+	public AnimationTimer timer;
 	
-	//game window width value->x & height value->y
+	//game window sizes
+	/**
+	 * Width variable of the game window size
+	 */
 	private int x = 600;
+	/**
+	 * Height variable of the game window size
+	 */
 	private int y = 800;
 	
 	//score variables
@@ -75,10 +94,17 @@ public class Levels extends Actor{
 	private int timerSecs = 0;
 	//
 	private int loopCount = 0;
-	int digDim = 35;
-	int digShift = 30;
 	
-	//player keystroke variables
+	/**
+	 * Int variable representing dimensions/size of the digit to be displayed
+	 */
+	public int digDim = 35;
+	/**
+	 * Int variable representing the amount of pixels needed as spacing in between digits
+	 */
+	public int digShift = 30;
+	
+	//player word variables
 	String inputWords;
 	int wordX = 100;
 	int wordY = 550;
@@ -93,17 +119,22 @@ public class Levels extends Actor{
 	private int soundX = 500;
 	private int soundY = 10;
 	
-	
 	//boolean values
 	private boolean changeTimer = false;
-	boolean changeWord = false;
+	/**
+	 * Boolean variable representing if a word is needed to be changed
+	 */
+	public boolean changeWord = false;
 	private boolean timerStarted = false;
 	private boolean muteMusic = false;
 	private boolean notified = false;
 	
 	private int resetEndValue = animal.getStopInt();
-
-	public void act(long now) {// not usable unless Levels created as an instance
+	
+	/**
+	 * Unused act method for extending World class
+	 */
+	public void act(long now) {
 	}
 	
 	//change finalLevel when new level is added
@@ -128,69 +159,58 @@ public class Levels extends Actor{
 		}else if( currLevel == 2 ){
 			lvl_3(stage);
 		}else {		
-			System.out.print("ERROR: Line 123: Can enter next level\n");
+			System.out.print("ERROR: Line 136: Can enter next level\n");
 		}
 	}
 	
+	/**
+	 * Constructor method that is used to be added to a {@code MyStage } class instance
+	 */
 	public Levels() {
 	}
 	
+	/**
+	 * <p>
+	 * Constructor method that updates the Stage instance in the {@code Levels } class when first instantiated and starts displaying levels
+	 * <br>
+	 * The {@code Levels(Stage stage) } constructor method is usually called by the {@code MainMenu } class
+	 * </p>
+	 * @param stage {@code Stage } class instance that represents the current stage
+	 */
 	public Levels(Stage stage){
 		this.levelStage = stage;
 		try {
 			checkLevel(stage);
 		} catch (Exception e) {
-			System.out.print("ERROR: Line 135: Cannot call checkLevel()");
-			//e.printStackTrace();
+			System.out.println("ERROR: Line 135: Cannot call checkLevel()");
+			e.printStackTrace();
 		}
 		
 		//shortcut keys
 		setOnKeyPressed(new EventHandler<KeyEvent>() { 
 			public void handle(KeyEvent event){
 				if ( event.getCode() == KeyCode.M && !(animal.gamePaused) ) { // mute music
-					if( muteMusic ) {
-						background.add(new Icon( "soundon.png", iconDim, soundX, soundY ));
-						
-						background.resumeMusic();
-						muteMusic = false;
-					}else {
-						background.add(new Icon( "soundoff.png", iconDim, soundX, soundY ));
-						
-						background.pauseMusic();
-						muteMusic = true;
-					}
+					muteLogic();
 				}
 				if ( event.getCode() == KeyCode.P) { // pause level
-					if( animal.gamePaused ) {
-						background.remove(pausemenu);
-						background.add(new Icon( "pause.png", iconDim, playPauseX, playPauseY ));
-						
-						background.resumeMusic();
-						animal.gamePaused = false;
-						
-						background.add(new Icon( "soundon.png", iconDim, soundX, soundY ));
-						timerStarted = false;
-						createTimer();
-						timer.start();
-						background.start();
+					pauseLogic();
+				}
+				if ( event.getCode() == KeyCode.G) {
+					if( animal.getGodMode() ) {
+						animal.setGodMode( false );
 					}else {
-						background.add(pausemenu);
-						background.add(new Icon( "play.png", iconDim, playPauseX, playPauseY ));
-						
-						background.add(new Icon( "soundoff.png", iconDim, soundX, soundY ));
-						background.pauseMusic();
-						animal.gamePaused = true;
-						
-						timer.stop();
-						background.stop();
+						animal.setGodMode( true );						
 					}
 				}
 			}
 		});
 	}
 	
-	//different levels
-	public void lvl_1(Stage stage_1) throws Exception{
+	/**
+	 * Level one of the game
+	 * @param stage_1 Stage instance passed in by the {@code checkLevel(Stage stage) } method
+	 */
+	public void lvl_1(Stage stage_1){
 		//set new background instance & background image
 		BackgroundImage froggerBackground = new BackgroundImage( "frog background2.png" );
 		background.add(froggerBackground);
@@ -219,7 +239,11 @@ public class Levels extends Actor{
 		start(stage_1);
 	}
 	
-	public void lvl_2(Stage stage_2) throws Exception{
+	/**
+	 * Level two of the game
+	 * @param stage_2 Stage instance passed in by the {@code checkLevel(Stage stage) } method
+	 */
+	public void lvl_2(Stage stage_2){
 		//set new background instance & background image
 		BackgroundImage froggerBackground = new BackgroundImage( "frog background2.png" );
 		background.add(froggerBackground);
@@ -261,7 +285,11 @@ public class Levels extends Actor{
 		start(stage_2);
 	}
 	
-	public void lvl_3(Stage stage_3) throws Exception{
+	/**
+	 * Level three of the game
+	 * @param stage_3 Stage instance passed in by the {@code checkLevel(Stage stage) } method
+	 */
+	public void lvl_3(Stage stage_3){
 		//set new background instance & background image
 		BackgroundImage froggerBackground = new BackgroundImage( "frog background2.png" );
 		background.add(froggerBackground);
@@ -302,17 +330,9 @@ public class Levels extends Actor{
 		start(stage_3);
 	}
 	
-	
-	public void lvl_x(Stage stage_x) throws Exception{ //change x in level_x and stage_x to number
-		//create new level here
-		
-		//set & start game (compulsory)
-		setScene(background, x, y);
-		start(stage_x);
-	}
-
-	
-	
+	/**
+	 * Creates a timer for the {@code Levels } class
+	 */
 	public void createTimer() {
 		this.timer = new AnimationTimer() {
             public void handle(long now) {
@@ -350,9 +370,19 @@ public class Levels extends Actor{
         };
     }
 	
-	public void setScene(MyStage background, int x, int y) {//set application window dimensions
+	/**
+	 * Instantiates a new local {@code Levels } class scene {@code Scene} class
+	 * @param background A local MyStage variable that has every graphical resource
+	 * @param x Int variable that represents the width of the game window
+	 * @param y Int variable that represents the height of the game window
+	 */
+	public void setScene(MyStage background, int x, int y) {
 		scene = new Scene(background,x,y);
 	}
+	/**
+	 * Displays the game window using the {@code Stage} class
+	 * @param stage A {@code Stage } class that controls the displayed game window
+	 */
 	public void showStage(Stage stage) {
 		stage.setResizable(false);
 		
@@ -365,14 +395,17 @@ public class Levels extends Actor{
 	}
 	
 	
-	//start, next and stop levels
+	/**
+	 * Method that initializes everything before showing the stage
+	 * @param stage Stage instance that is used to display the stage later
+	 */
 	public void start(Stage stage) {
-		//add objectives
-		background.add(new End(13,96));
-		background.add(new End(141,96));
-		background.add(new End(141 + 141-13, 96));
-		background.add(new End(141 + 141-13+141-13+1, 96));
-		background.add(new End(141 + 141-13+141-13+141-13+3, 96));
+		//add end objectives
+		int n = 13;
+		for(int x=0 ; x<5; x++) {
+			background.add( new End( n, 96));
+			n += 128;
+		}
 		
 		//add Level & animal to background
 		background.add(animal);
@@ -386,16 +419,19 @@ public class Levels extends Actor{
 			background.add(new Digit(0, digDim, timerx - (digShift*loopCount), timery));
 			loopCount += 1 ;
 		}
+		//puts words 'timer' and 'score' on top
 		setWord("timer", 5, 40, 5);
 		setWord("score", 5, 250, 5);
 		background.add(new Icon( "pause.png", iconDim, playPauseX, playPauseY ));
 		
 		//create timer and show game window
-		if( !muteMusic ) {
+		if( muteMusic ) {
+			background.add(new Icon( "soundoff.png", iconDim, soundX, soundY ));
+			background.playMusic();
+			background.pauseMusic();
+		}else {	
 			background.add(new Icon( "soundon.png", iconDim, soundX, soundY ));
 			background.playMusic();
-		}else {	
-			background.add(new Icon( "soundoff.png", iconDim, soundX, soundY ));
 		}
 		
 		createTimer();
@@ -404,6 +440,9 @@ public class Levels extends Actor{
 		
 		showStage(stage);
     }
+	/**
+	 * Calls the stop() method and notifies the games that it should proceed to the nextlevel
+	 */
 	public void nextLevel(){
 		animal.setStop( resetEndValue );
 		stop();
@@ -411,33 +450,49 @@ public class Levels extends Actor{
 		try {
 			checkLevel( levelStage );
 		} catch (Exception e) {
-			System.out.print("Line 402: ERROR: Unable to enter next level\n");
+			System.out.print("Line 413: ERROR: Unable to enter next level\n");
 			//e.printStackTrace();
 		}
 	}
+	/**
+	 * Stops all the timers and music
+	 */
     public void stop() {
-    	if(!muteMusic) {
-    		background.stopMusic();
-    	}
+    	background.stopMusic();
     	
     	timer.stop();
     	background.stop();
     }
     
     
-    // create new background instance
+    /**
+     * Assigns a new MyStage background instance
+     */
     public void newBackground() { 
     	this.background = new MyStage();
     }
+    /**
+     * Sets the local MyStage background instance to the parameter
+     * @param background {@code MyStage } class instance to set the local {@code MyStage } background instance in the {@code Levels } class to
+     */
     public void setBackgroundInstance(MyStage background) {
     	this.background = background;
     }
+    /**
+     * Gets the local {@code MyStage } background instance
+     * @return {@code MyStage } background instance from the {@code Levels } class
+     */
     public MyStage getBackgroundInstance() {
     	return background;
     }
     
     
-    //change numbers and words
+    /**
+     * Displays the n Int variable parameter on the x and y Int variable parameters
+     * @param n Int variable to be displayed on the game window
+     * @param x Int variable of the x coordinate on the game window
+     * @param y Int variable of the y coordinate on the game window
+     */
     public void setNumber(int n, int x, int y) { //set digit sprites for score and timer
     	loopCount = 0;
     	while (n>0) {
@@ -447,6 +502,13 @@ public class Levels extends Actor{
     		loopCount += 1;
     	}
     }
+    /**
+     * Displays the string String parameter on the x and y variable parameters
+     * @param string String variable to be displayed on the game window
+     * @param maxWordLength Int variable that represents the maximum word length intended
+     * @param x Int variable of the x coordinate on the game window
+     * @param y Int variable of the y coordinate on the game window
+     */
     public void setWord(String string, int maxWordLength, int x, int y) { //set digit sprites for score and timer
     	int count = 0;
     	while ( count < string.length() ) {
@@ -459,7 +521,9 @@ public class Levels extends Actor{
     	}
     }
     
-    // goes to end menu screen
+    /**
+     * Declares a game over status and instantiates the {@code EndMenu } class
+     */
     public void gameOver() {
     	stop();
     	if(!notified) {
@@ -469,7 +533,10 @@ public class Levels extends Actor{
     	}
     }
     
-    //
+    /**
+     * Checks and changes the boolean variable of the changeTimer boolean variable 
+     * @return Boolean variable of the changeTimer boolean variable
+     */
     public boolean changeTimer() {
 		if (changeTimer) {
 			changeTimer = false;
@@ -477,6 +544,10 @@ public class Levels extends Actor{
 		}
 		return false;
 	}
+    /**
+     * Checks and changes the boolean variable of the changeWord boolean variable
+     * @return Boolean variable of the changeWord boolean variable
+     */
     public boolean changeWord() {
 		if (changeWord) {
 			changeWord = false;
@@ -485,8 +556,58 @@ public class Levels extends Actor{
 		return false;
 	}
     
-    //convert nanoseconds to seconds
-    public long nanoToSec(long nnSec) { 
+    /**
+     * Converts nanoseconds to seconds
+     * @param nnSec Long variable representing nanoseconds
+     * @return Long variable that is converted from nanoseconds to seconds
+     */
+    private long nanoToSec(long nnSec) { 
     	return (nnSec/1000000000);
+    }
+    
+    
+    /**
+     * Contains the game pausing and resuming mechanic
+     */
+    private void pauseLogic() {
+    	if( animal.gamePaused ) {
+			background.remove(pausemenu);
+			background.add(new Icon( "pause.png", iconDim, playPauseX, playPauseY ));
+			
+			background.resumeMusic();
+			animal.gamePaused = false;
+			
+			background.add(new Icon( "soundon.png", iconDim, soundX, soundY ));
+			timerStarted = false;
+			createTimer();
+			timer.start();
+			background.start();
+		}else {
+			background.add(pausemenu);
+			background.add(new Icon( "play.png", iconDim, playPauseX, playPauseY ));
+			
+			background.add(new Icon( "soundoff.png", iconDim, soundX, soundY ));
+			background.pauseMusic();
+			animal.gamePaused = true;
+			
+			timer.stop();
+			background.stop();
+		}
+    }
+    /**
+     * Contains the mute and unmute game mechanic
+     */
+    private void muteLogic() {
+    	if( muteMusic ) {
+			background.add(new Icon( "soundon.png", iconDim, soundX, soundY ));
+			
+			background.resumeMusic();
+			muteMusic = false;
+		}else {
+			background.add(new Icon( "soundoff.png", iconDim, soundX, soundY ));
+			
+			background.pauseMusic();
+			muteMusic = true;
+		}
     }
 }

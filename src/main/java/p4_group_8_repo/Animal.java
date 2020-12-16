@@ -29,20 +29,28 @@ public class Animal extends Actor {
 	private int points = 0;
 	//image size
 	private int imgSize = 40;
+	//animation speed (in milliseconds)
+	private double animationSpeed = 200;
+	//furthest position traveled
+	private double farPos = 800;
+	//current time
+	private long currTime = 0;
+	//index number of death image array list
+	private int animationFrame = 0;
+	//last alive player positions
+	private double xPosLast = 0;
+	private double yPosLast = 0;
 	
 	int death = 0;
 	
-	// width
-	private double w = 800;
-	
 	//boolean values
 	private boolean second = false;
-	boolean noMove = false;
-	boolean carDeath = false;
-	boolean waterDeath = false;
-	boolean stop = false;
-	boolean changeScore = false;
-	boolean muteMusic = false;
+	private boolean carDeath = false;
+	private boolean waterDeath = false;
+	private boolean noMove = false;
+	private boolean changeScore = false;
+	private boolean animalSpawned = false;
+	
 	/**
 	 * Boolean value that represents game paused status
 	 */
@@ -74,11 +82,11 @@ public class Animal extends Actor {
 		setX(spawnX);
 		setY(spawnY);
 		
-		setOnKeyPressed(new EventHandler<KeyEvent>() {
+		setOnKeyPressed(new EventHandler<KeyEvent>() {//player movement logic
 			public void handle(KeyEvent event){
 				if( !gamePaused ) {
-					if (noMove) {
-					}else{
+					if ( !noMove ) {
+						/*
 						if (second) {
 							if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {
 				                move(0, -movementY);
@@ -98,22 +106,30 @@ public class Animal extends Actor {
 				            	setImage(imgD1);
 				            	second = false;
 				            }
-						}else if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {	            	
+						}else*/if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {	            	
 			                move(0, -movementY);
 			                setImage(imgW2);
 			                second = true;
+			                
+			                yPosLast = getY();
 			            }else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {	            	
 			            	move(-movementX, 0);
 			            	setImage(imgA2);
 			            	second = true;
+			            	
+			            	yPosLast = getX();
 			            }else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {	            	
 			            	move(0, movementY);
 			            	setImage(imgS2);
 			            	second = true;
-			            }else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {	            	
+			            	
+			            	yPosLast = getY();
+			            }else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {          	
 			            	move(movementX, 0);
 			            	setImage(imgD2);
 			            	second = true;
+			            	
+			            	xPosLast = getX();
 			            }
 					}
 				}
@@ -122,33 +138,34 @@ public class Animal extends Actor {
 		setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event) {
 				if( !gamePaused ) {
-					if (noMove) {
-					}else {
-					if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {	  
-						if (getY() < w) {
-							changeScore = true;
-							w = getY();
-							points+=10;
-						}
-		                move(0, -movementY);
-		                setImage(imgW1);
-		                second = false;
-		            }
-		            else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {	            	
-		            	move(-movementX, 0);
-		            	setImage(imgA1);
-		            	second = false;
-		            }
-		            else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {	            	
-		            	move(0, movementY);
-		            	setImage(imgS1);
-		            	second = false;
-		            }
-		            else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {	            	
-		            	move(movementX, 0);
-		            	setImage(imgD1);
-		            	second = false;
-		            }
+					if ( !noMove && xPosLast == getX() && yPosLast == getY() ) {
+						if ( (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) ) {
+							if (getY() < farPos) {//scoring system
+								changeScore = true;
+								farPos = getY();
+								points+=10;
+							}
+			                move(0, -movementY);
+			                setImage(imgW1);
+			                second = false;
+			            }
+			            else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {	            	
+			            	move(-movementX, 0);
+			            	setImage(imgA1);
+			            	second = false;
+			            }
+			            else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {	            	
+			            	move(0, movementY);
+			            	setImage(imgS1);
+			            	second = false;
+			            }
+			            else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {	            	
+			            	move(movementX, 0);
+			            	setImage(imgD1);
+			            	second = false;
+			            }
+					}else if( !noMove ){
+						setImage(imgW1);
 					}
 				}
 			}
@@ -156,89 +173,78 @@ public class Animal extends Actor {
 	}
 	
 	/**
-	 * A method that contains death animations and movement logic
+	 * A method that contains death animations, movement mechanics and spawning mechanic
 	 * @param now A long variable representing system ticks
 	 */
 	public void act(long now) {
+		if( !animalSpawned ) { // player has spawned
+        	xPosLast = getX();
+        	yPosLast = getY();
+			animalSpawned = true;
+			currTime = now;
+		}
 		if (getY()<0 || getY()>800) { // Y-movement limitation
-			setX(spawnX);
 			setY(spawnY);
 		}
 		if ( getX()<0 ) { // X-movement limitation
-			move(movementX*27, 0);
+			move( movementX*27, 0 );
 		}else if( getX()> 557 ) {
-			move(-movementX*27, 0);
-		}
-		if (carDeath) { // car death animation
-			noMove = true;
-			if ((now)% 11 == 0) {
-				death++;
-			}
-			if (death==1) {
-				setImage(new Image( img_path + "cardeath1.png", imgSize, imgSize, true, true));
-			}
-			if (death==2) {
-				setImage(new Image( img_path + "cardeath2.png", imgSize, imgSize, true, true));
-			}
-			if (death==3) {
-				setImage(new Image( img_path + "cardeath3.png", imgSize, imgSize, true, true));
-			}
-			if (death == 4) {
-				setX(spawnX);
-				setY(spawnY);
-				carDeath = false;
-				death = 0;
-				setImage(new Image( img_path + "froggerUp.png", imgSize, imgSize, true, true));
-				noMove = false;
-				if (points>50) {
-					points-=50;
-					changeScore = true;
-				}
-			}
-		}
-		if (waterDeath) {
-			noMove = true;
-			if ( (now)% 11 == 0) { // water death animation
-				death++;
-			}
-			if (death==1) {
-				setImage(new Image( img_path + "waterdeath1.png", imgSize, imgSize , true, true));
-			}
-			if (death==2) {
-				setImage(new Image( img_path + "waterdeath2.png", imgSize, imgSize , true, true));
-			}
-			if (death==3) {
-				setImage(new Image( img_path + "waterdeath3.png", imgSize, imgSize , true, true));
-			}
-			if (death == 4) {
-				setImage(new Image( img_path + "waterdeath4.png", imgSize, imgSize , true, true));
-			}
-			if (death == 5) {
-				setX(spawnX);
-				setY(spawnY);
-				waterDeath = false;
-				death = 0;
-				setImage(new Image( img_path + "froggerUp.png", imgSize, imgSize, true, true));
-				noMove = false;
-				if (points>50) {
-					points-=50;
-					changeScore = true;
-				}
-			}
-			
+			move( -movementX*27, 0 );
 		}
 		
 		if( !(godMode) ) { 
-			// death logic
-			if (getX()>600) {
-				move(-movementY*2, 0);
+			//death animations
+			if (carDeath) { // car death animation
+				noMove = true;
+				if( nanoToMilli(now-currTime) >= animationSpeed && animationFrame < carDeathImg.size() ) {
+					setImage(new Image( carDeathImg.get( animationFrame ) , imgSize, imgSize, true, true));
+					currTime = now;
+					animationFrame++;
+				}
+				if( animationFrame == carDeathImg.size() ) {
+					//respawn animal
+					setX(spawnX);
+					setY(spawnY);
+					setImage(new Image( img_path + "froggerUp.png", imgSize, imgSize, true, true));
+					
+					carDeath = false;
+					noMove = false;
+					
+					animationFrame = 0;
+					if (points>50) {
+						points-=50;
+						changeScore = true;
+					}
+				}
 			}
+			if (waterDeath) {
+				noMove = true;
+				if( nanoToMilli(now-currTime) >= animationSpeed && animationFrame < waterDeathImg.size() ) {
+					setImage(new Image( waterDeathImg.get( animationFrame ) , imgSize, imgSize, true, true));
+					currTime = now;
+					animationFrame++;
+				}
+				if( animationFrame == waterDeathImg.size() ) {
+					//respawn animal
+					setX(spawnX);
+					setY(spawnY);
+					setImage(new Image( img_path + "froggerUp.png", imgSize, imgSize, true, true));
+					
+					waterDeath = false;
+					noMove = false;
+					
+					animationFrame = 0;
+					if (points>50) {
+						points-=50;
+						changeScore = true;
+					}
+				}
+			}
+			// death logic
 			if (getIntersectingObjects(Obstacle.class).size() >= 1) {
 				carDeath = true;
 			}
-			if (getX() == 240 && getY() == 82) {
-				stop = true;
-			}
+			
 			if (getIntersectingObjects(Log.class).size() >= 1 && !noMove) {
 				if(getIntersectingObjects(Log.class).get(0).getLeft()) {
 					move(-2,0);
@@ -246,16 +252,13 @@ public class Animal extends Actor {
 				else {
 					move (.75,0);
 				}
-			}
-			else if (getIntersectingObjects(Turtle.class).size() >= 1 && !noMove) {
+			}else if (getIntersectingObjects(Turtle.class).size() >= 1 && !noMove) {
 				move(-1,0);
-			}
-			else if (getIntersectingObjects(WetTurtle.class).size() >= 1) {
+			}else if (getIntersectingObjects(WetTurtle.class).size() >= 1) {
 				if (getIntersectingObjects(WetTurtle.class).get(0).isSunk()) {
 					waterDeath = true;
 				} else { move(-1,0); }
-			}
-			else if (getIntersectingObjects(End.class).size() >= 1) { //objective intersection logic
+			}else if (getIntersectingObjects(End.class).size() >= 1) { //objective intersection detection
 				inter = (ArrayList<End>) getIntersectingObjects(End.class);
 				if (getIntersectingObjects(End.class).get(0).isActivated()) {
 					end--;
@@ -263,14 +266,15 @@ public class Animal extends Actor {
 				}
 				points+=50;
 				changeScore = true;
-				w=800;
+				farPos=800;
 				getIntersectingObjects(End.class).get(0).setEnd();
 				end++;
 				setX(spawnX);
 				setY(spawnY);
+			}else if (getY()<413){	
+				waterDeath = true;
 			}
-			else if (getY()<413){	waterDeath = true;
-			}
+			
 		}else {
 			if (getIntersectingObjects(End.class).size() >= 1) {
 				inter = (ArrayList<End>) getIntersectingObjects(End.class);
@@ -280,7 +284,7 @@ public class Animal extends Actor {
 				}
 				points+=50;
 				changeScore = true;
-				w=800;
+				farPos=800;
 				getIntersectingObjects(End.class).get(0).setEnd();
 				end += 1;
 				setX(spawnX);
@@ -352,4 +356,28 @@ public class Animal extends Actor {
 			carDeathImg.add( img_path+"cardeath"+x+".png" );
 		}
 	}
+	
+	/**
+	 * Gets the boolean value of the private boolean variable godMode(debugging tool)
+	 * @return Boolean variable that represents the mortality of the player character
+	 */
+	public boolean getGodMode() {
+		return godMode;
+	}
+	/**
+	 * Sets the private boolean variable godMode(debugging tool) inside the {@code Animal } class to the boolean parameter
+	 * @param gm Boolean variable that represents the mortality of the player character
+	 */
+	public void setGodMode(boolean gm) {
+		godMode = gm;
+	}
+	
+	/**
+	 * Converts nanoseconds to milliseconds
+	 * @param nnSec Long variable representing nanoseconds
+	 * @return Long variable that is converted from nanoseconds to milliseconds
+	 */
+	private long nanoToMilli(long nnSec) { 
+    	return (nnSec/1000000);
+    }
 }
