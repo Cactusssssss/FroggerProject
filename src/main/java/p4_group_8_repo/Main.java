@@ -1,14 +1,14 @@
-/**
- * Main class starts the game by instantiating MainMenu()
- * 
- * version 0.6.1
- * 
- */
 package p4_group_8_repo;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * {@code Main} class starts the game by instantiating the {@code MainMenu} class
+ * 
+ * @author Pang CH
+ * 
+ */
 public class Main extends Application {
 	MainMenu menu;
 	

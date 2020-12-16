@@ -1,16 +1,20 @@
-/**
- * Obstacle class contains methods for obstacle creation and movement by using a timer
- * 
- * usage: 
- * Obstacle obstacle = new Obstacle( "obstacle.png", int x, int y, int speed, int image-width, int image-height);
- * e.g:
- * Obstacle truck1 = new Obstacle( "truck1Right.png", 0, 649, 1, 120, 120);
- *
- */
+
 package p4_group_8_repo;
 
 import javafx.scene.image.Image;
 
+/**
+ * <p>
+ * {@code Obstacle} class contains a constructor and method for obstacle image and movement
+ * </p>
+ * <p>
+ * Usage:</p> 
+ * <pre><code>Obstacle obstacle = new Obstacle( "obstacle.png", int x, int y, int speed, int image-width, int image-height);</pre></code>
+ * <p>e.g:</p>
+ * <pre><code>Obstacle truck1 = new Obstacle( "truck1Right.png", 0, 649, 1, 120, 120);</pre></code>
+ *
+ * @author Pang CH
+ */
 public class Obstacle extends Actor {
 	private String img_path = new String("file:src/main/java/p4_group_8_repo/");
 	private int speed;

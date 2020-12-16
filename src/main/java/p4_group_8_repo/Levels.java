@@ -13,9 +13,9 @@ import javafx.stage.Stage;
 
 /**
  * <p>
- * Contains methods to start a level, key listeners, level progression detection, number positioning and word positioning
+ * Contains methods and constructors to start a level, key listeners, level progression detection, number positioning and word positioning
  * <br>
- * {@code Levels } class is instantiated inside the {@code MainMenu } class
+ * {@code Levels} class is instantiated inside the {@code MainMenu} class
  * </p>
  * 
  * <p>
@@ -33,7 +33,7 @@ import javafx.stage.Stage;
  * <p>
  * After pasting the template, replace x with a new level variable then add a new background image and obstacles/turtles/wet turtles/logs.
  * <br>
- * After adding a new level the local value of finalLevel Int variable has to be incremented
+ * After adding a new level, the value of the finalLevel Int variable has to be incremented
  * </p>
  * 
  * <p>
@@ -131,9 +131,6 @@ public class Levels extends Actor{
 	
 	private int resetEndValue = animal.getStopInt();
 	
-	/**
-	 * Unused act method for extending World class
-	 */
 	public void act(long now) {
 	}
 	
@@ -141,7 +138,11 @@ public class Levels extends Actor{
 	private int currLevel = 0;
 	private int finalLevel = 3;
 	
-	public void checkLevel(Stage stage) throws Exception{
+	/**
+	 * The {@code checkLevel} method checks which level the player needs to progress to
+	 * @param stage {@code Stage} class variable instance which represents the current state of the window
+	 */
+	public void checkLevel(Stage stage){
 		newBackground();
 		//notify new level
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -164,18 +165,18 @@ public class Levels extends Actor{
 	}
 	
 	/**
-	 * Constructor method that is used to be added to a {@code MyStage } class instance
+	 * Constructor method that is used to be added to a {@code MyStage} class instance
 	 */
 	public Levels() {
 	}
 	
 	/**
 	 * <p>
-	 * Constructor method that updates the Stage instance in the {@code Levels } class when first instantiated and starts displaying levels
+	 * Constructor method that updates the Stage instance in the {@code Levels} class when first instantiated and starts displaying levels
 	 * <br>
-	 * The {@code Levels(Stage stage) } constructor method is usually called by the {@code MainMenu } class
+	 * The {@code Levels(Stage stage)} constructor is usually called by the {@code MainMenu} class
 	 * </p>
-	 * @param stage {@code Stage } class instance that represents the current stage
+	 * @param stage {@code Stage} class instance that represents the current stage
 	 */
 	public Levels(Stage stage){
 		this.levelStage = stage;
@@ -192,15 +193,18 @@ public class Levels extends Actor{
 				if ( event.getCode() == KeyCode.M && !(animal.gamePaused) ) { // mute music
 					muteLogic();
 				}
-				if ( event.getCode() == KeyCode.P) { // pause level
+				if ( event.getCode() == KeyCode.P ) { // pause level
 					pauseLogic();
 				}
-				if ( event.getCode() == KeyCode.G) {
+				if ( event.getCode() == KeyCode.G ) {
 					if( animal.getGodMode() ) {
 						animal.setGodMode( false );
 					}else {
 						animal.setGodMode( true );						
 					}
+				}
+				if( event.getCode() == KeyCode.L ) {
+					animal.setStop(5);
 				}
 			}
 		});
@@ -208,7 +212,7 @@ public class Levels extends Actor{
 	
 	/**
 	 * Level one of the game
-	 * @param stage_1 Stage instance passed in by the {@code checkLevel(Stage stage) } method
+	 * @param stage_1 Stage instance passed in from the {@code checkLevel} method
 	 */
 	public void lvl_1(Stage stage_1){
 		//set new background instance & background image
@@ -241,7 +245,7 @@ public class Levels extends Actor{
 	
 	/**
 	 * Level two of the game
-	 * @param stage_2 Stage instance passed in by the {@code checkLevel(Stage stage) } method
+	 * @param stage_2 Stage instance passed in from the {@code checkLevel} method
 	 */
 	public void lvl_2(Stage stage_2){
 		//set new background instance & background image
@@ -287,7 +291,7 @@ public class Levels extends Actor{
 	
 	/**
 	 * Level three of the game
-	 * @param stage_3 Stage instance passed in by the {@code checkLevel(Stage stage) } method
+	 * @param stage_3 Stage instance passed in by the {@code checkLevel} method
 	 */
 	public void lvl_3(Stage stage_3){
 		//set new background instance & background image
@@ -331,7 +335,7 @@ public class Levels extends Actor{
 	}
 	
 	/**
-	 * Creates a timer for the {@code Levels } class
+	 * Creates a timer for the {@code Levels} class
 	 */
 	public void createTimer() {
 		this.timer = new AnimationTimer() {
@@ -371,8 +375,8 @@ public class Levels extends Actor{
     }
 	
 	/**
-	 * Instantiates a new local {@code Levels } class scene {@code Scene} class
-	 * @param background A local MyStage variable that has every graphical resource
+	 * Instantiates a new {@code Levels} class scene {@code Scene} class
+	 * @param background A local {@code MyStage} class variable that has every graphical resource
 	 * @param x Int variable that represents the width of the game window
 	 * @param y Int variable that represents the height of the game window
 	 */
@@ -396,7 +400,7 @@ public class Levels extends Actor{
 	
 	
 	/**
-	 * Method that initializes everything before showing the stage
+	 * Method that initializes everything before displaying the game window
 	 * @param stage Stage instance that is used to display the stage later
 	 */
 	public void start(Stage stage) {
@@ -472,15 +476,15 @@ public class Levels extends Actor{
     	this.background = new MyStage();
     }
     /**
-     * Sets the local MyStage background instance to the parameter
-     * @param background {@code MyStage } class instance to set the local {@code MyStage } background instance in the {@code Levels } class to
+     * Sets the private {@code MyStage} class background variable instance to the parameter
+     * @param background {@code MyStage} class instance to set the {@code MyStage} class background variable instance in the {@code Levels} class to
      */
     public void setBackgroundInstance(MyStage background) {
     	this.background = background;
     }
     /**
-     * Gets the local {@code MyStage } background instance
-     * @return {@code MyStage } background instance from the {@code Levels } class
+     * Gets the {@code Levels} class background variable instance
+     * @return {@code MyStage} background instance from the {@code Levels} class
      */
     public MyStage getBackgroundInstance() {
     	return background;
@@ -522,7 +526,7 @@ public class Levels extends Actor{
     }
     
     /**
-     * Declares a game over status and instantiates the {@code EndMenu } class
+     * Declares a game over status and instantiates the {@code EndMenu} class
      */
     public void gameOver() {
     	stop();

@@ -1,52 +1,93 @@
-/**
- * Turtle class contains turtle platform that switches images by using a timer
- * 
- * usage:
- * Turtle turtle = new Turtle( int x, int y, int speed, int image-width, in image-height );
- * e.g:
- * Turtle turtle1 = new Turtle(500, 376, -1, 130, 130);
- * 
- * 
- */
 package p4_group_8_repo;
+
+import java.util.ArrayList;
 
 import javafx.scene.image.Image;
 
+/**
+ * <p>
+ * {@code Turtle} class contains methods and a constructor for turtle spawning, turtle movement and turtle animation controller
+ * </p>
+ * <p>
+ * Usage:</p>
+ * <pre><code>Turtle turtle = new Turtle( int x, int y, int speed, int image-width, in image-height );</pre></code>
+ * <p>
+ * e.g:</p>
+ * <pre><code>Turtle turtle1 = new Turtle(500, 376, -1, 130, 130);</pre></code>
+ * 
+ * @author Pang CH
+ * 
+ */
 public class Turtle extends Actor{
 	private String img_path = new String("file:src/main/java/p4_group_8_repo/");
-	Image turtle1;
-	Image turtle2;
-	Image turtle3;
-	private int speed;
-	int i = 1;
-	boolean bool = true;
+	private ArrayList<String> turtleImg = new ArrayList<String>();
+	
+	//turtle size
+	private int width = 0;
+	private int height = 0;
+	
+	//turtle spawned?
+	private boolean turtleSpawned = false;
+	
+	//turtle movement speed
+	private int movementSpeed = 0;
+	//turtle animation speed(milliseconds)
+	private long animationSpeed = 800;
+	//turtle image array list index
+	private int animationFrame = 0;
+	//current time
+	private long currTime = 0;
+	
+	
 	public void act(long now) {
-		if (now/900000000  % 3 ==0) {
-			setImage(turtle2);
-			
+		move(movementSpeed , 0);
+		
+		if( !turtleSpawned ) {
+			turtleSpawned = true;
+			currTime = now;
 		}
-		else if (now/900000000 % 3 == 1) {
-			setImage(turtle1);
-			
+		if( nnToMilli(now-currTime) >= animationSpeed ){ //animation controller
+			setImage( new Image( turtleImg.get( animationFrame ), width, height, true, true) );
+			animationFrame++;
+			currTime = now;
+			if( turtleImg.size() == animationFrame) {
+				animationFrame = 0;
+			}
 		}
-		else if (now/900000000 %3 == 2) {
-			setImage(turtle3);
-			
-		}
-			
-		move(speed , 0);
-		if (getX() > 600 && speed>0)
+		
+		if (getX() > 600 && movementSpeed>0)
 			setX(-200);
-		if (getX() < -75 && speed<0)
+		if (getX() < -75 && movementSpeed<0)
 			setX(600);
 	}
 	public Turtle(int xpos, int ypos, int s, int w, int h) {
-		turtle1 = new Image(img_path + "TurtleAnimation1.png", w, h, true, true);
-		turtle2 = new Image(img_path + "file:src/p4_group_8_repo/TurtleAnimation2.png", w, h, true, true);
-		turtle3 = new Image(img_path + "file:src/p4_group_8_repo/TurtleAnimation3.png", w, h, true, true);
+		addAllTurtleImg();
+		
 		setX(xpos);
 		setY(ypos);
-		speed = s;
-		setImage(turtle2);
+		
+		width = w;
+		height = h;
+		movementSpeed = s;
+		
+		setImage( new Image( turtleImg.get( animationFrame ), w, h, true, true) );
+	}
+	
+	/**
+	 * Adds all turtle images to the the private array list {@code turtleImg}
+	 */
+	private void addAllTurtleImg() {
+		for(int x =1; x<4; x++) {
+			turtleImg.add( img_path + "TurtleAnimation" + x + ".png");
+		}
+	}
+	
+	/**
+	 * Converts nanoseconds into milliseconds
+	 * @param nnSec Long variable that repreesnts nanoseconds
+	 * @return Long variablet that represents milliseconds
+	 */
+	private long nnToMilli(long nnSec) {
+		return (nnSec/1000000);
 	}
 }

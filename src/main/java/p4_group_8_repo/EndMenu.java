@@ -1,12 +1,3 @@
-/**
- * EndMenu class contains methods for highscore checking, highscore entering and popups
- * 
- * usage:
- * instantiate to create a new end menu instance
- * EndMenu endmenu = new EndMenu(Stage stage);
- * 
- *
- */
 package p4_group_8_repo;
 
 import java.io.*;
@@ -21,6 +12,18 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+/**
+ * <p>
+ * {@code EndMenu} class contains methods and constructors for highscore displaying, highscore entering and pop-up windows
+ * </p>
+ * 
+ * <p>
+ * Usage:
+ * </p>
+ * <pre><code>EndMenu endmenu = new EndMenu(Stage stage);</pre></code>
+ * 
+ *
+ */
 public class EndMenu extends Actor{
 	private Levels level = new Levels();
 	private MyStage background;
@@ -30,7 +33,7 @@ public class EndMenu extends Actor{
 	private String keyStrokes = new String();
 	private int wordCount = 0;
 	private int maxWordLength = 10;
-	int stopAt = -1;
+	private int stopAt = -1;
 	
 	//window x & y
 	private int x = 600;
@@ -42,16 +45,26 @@ public class EndMenu extends Actor{
 	public void act(long now) {
 	}
 	
+	/**
+	 * Creates a new {@code MyStage} class instance and sets the current background variable to the one in {@code Levels } class
+	 */
 	private void setNewBackground() {
 		level.newBackground();
 		background = level.getBackgroundInstance();
 		level.maxWordLength = this.maxWordLength;
 	}
 	
+	/**
+	 * Constructor for testing if an {@code EndMenu} class instance can be created
+	 */
 	public EndMenu() {
 		System.out.print("End Menu instance Created!"); //for debug
 	}
 	
+	/**
+	 * Constructor for showing the final menu
+	 * @param endMenu {@code Stage} class variable instance that contains everything to start the final menu
+	 */
 	public EndMenu (Stage endMenu) {
 		setNewBackground();
 		BackgroundImage endMenuBackground = new BackgroundImage( "game-over-menu.png" );
@@ -95,16 +108,26 @@ public class EndMenu extends Actor{
 		});
 	}
 	
+	/**
+	 * Updates the player input on screen and displays it
+	 * @param stage {@code Stage} class variable that contains everything to start the final menu 
+	 */
 	public void changeWord(Stage stage) {
 		level.inputWords = keyStrokes;
 		level.changeWord = true;
 		level.showStage(stage);
 	}
+	/**
+	 * Gets the private Int variable {@code maxWordLength} from {@code EndMenu} class
+	 * @return Int value that represents the maximum word length
+	 */
 	public int getMaxWordLength() {
 		return maxWordLength;
 	}
 	
-	
+	/**
+	 * Starts the checking of highscores
+	 */
 	public void checkHighScore() {
 		//start only if inserting highscore is needed
 		level.animal.gamePaused = true;
@@ -115,7 +138,7 @@ public class EndMenu extends Actor{
 		
 		readFile();
 	}
-	private void writeFile(String string) {
+	private void writeFile(String string) { // writes to highscore file
 		try {
 			Formatter fileWriter = new Formatter(new File( System.getProperty("user.dir") + "\\highscores.txt"));
 			
@@ -123,12 +146,12 @@ public class EndMenu extends Actor{
 			
 			fileWriter.close();
 		} catch (FileNotFoundException e) {
-			System.out.print("ERROR: Line 120: Unable to write file");
+			System.out.print("ERROR: Line 132: Unable to write file");
 			//e.printStackTrace();
 		}
 	}
-	private void readFile() {
-		//level.animal.setPoints(999); //set points to test highscore system
+	private void readFile() { //reads and displays highscore file
+		//level.animal.setPoints(999); //set points to test highscore system(debugging tool)
 		int newPlayerScore = level.animal.getPoints();
 		
 		level.worDim = 30;
@@ -233,7 +256,7 @@ public class EndMenu extends Actor{
 	
 	
 	
-	private void gameOverAlert() {
+	private void gameOverAlert() { // popup window for game over (no highscore)
     	Alert alert = new Alert(AlertType.INFORMATION);
     	
     	alert.setTitle("Game Over!");
@@ -241,7 +264,7 @@ public class EndMenu extends Actor{
     	alert.setContentText("Try Again Next Time!");
     	alert.show();
 	}
-	private void newHighScoreAlert() {
+	private void newHighScoreAlert() { // popup window for game over (highscore)
 		Alert alert = new Alert(AlertType.INFORMATION);
 		
 		alert.setTitle("New High Score!");
@@ -249,7 +272,7 @@ public class EndMenu extends Actor{
     	alert.setContentText("Enter Your Name With Alphabet Or Digit Keys.\nPress 'Enter' To Confirm Your Name Afterwards.");
     	alert.show();
 	}
-	private void confirmationAlert() {
+	private void confirmationAlert() { // popup window for name confirmation
 		Alert confirm = new Alert( AlertType.CONFIRMATION, "You Will Not Be Able To Change Your Name\nAfter You Press 'OK'.");
 		confirm.setHeaderText("Are You Sure?");
         confirm.setTitle("Confirm Name");
@@ -263,7 +286,7 @@ public class EndMenu extends Actor{
         });
 	}
 	
-	private String deleteLastChar(String s)   {
+	private String deleteLastChar(String s)   { // removes the last character in a string
 		return s.substring(0, s.length() - 1);  
 	} 
 }

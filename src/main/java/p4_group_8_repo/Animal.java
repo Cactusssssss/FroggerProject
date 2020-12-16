@@ -7,12 +7,22 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 /**
- * Animal class is an extension of actor class containing death logic, death animation, hitbox detection, movement and player image
+ * <p>
+ * {@code Animal} class is an extension of actor class containing death logic, death animation, hitbox detection, movement and player positioning
+ * <br>
+ * The {@code Animal} class is usually instantiated by the {@code Levels} class, this is to create a player controlled charater for the player
+ * </p>
+ * 
+ * <p>
+ * Usage example:
+ * </p>
+ * <pre><code>
+ * Animal animal = new Animal( img_path + "froggerUp.png");
+ * </pre></code>
  * 
  * @author Pang CH
  *
  */
-
 public class Animal extends Actor {
 	private String img_path = new String("file:src/main/java/p4_group_8_repo/");
 	private ArrayList<String> waterDeathImg = new ArrayList<String>();
@@ -40,8 +50,6 @@ public class Animal extends Actor {
 	//last alive player positions
 	private double xPosLast = 0;
 	private double yPosLast = 0;
-	
-	int death = 0;
 	
 	//boolean values
 	private boolean second = false;
@@ -78,95 +86,68 @@ public class Animal extends Actor {
 		//add all death images
 		addAllWaterDeathImg();
 		addAllCarDeathImg();
-		//set player spawning x & y
-		setX(spawnX);
-		setY(spawnY);
+		//spawn player
+		respawnAnimal();
 		
 		setOnKeyPressed(new EventHandler<KeyEvent>() {//player movement logic
 			public void handle(KeyEvent event){
-				if( !gamePaused ) {
-					if ( !noMove ) {
-						/*
-						if (second) {
-							if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {
-				                move(0, -movementY);
-				                changeScore = false;
-				                setImage(imgW1);
-				                second = false;
-				            }else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {	            	
-				            	move(-movementX, 0);
-				            	setImage(imgA1);
-				            	second = false;
-				            }else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {	            	
-				            	move(0, movementY);
-				            	setImage(imgS1);
-				            	second = false;
-				            }else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {	            	
-				            	move(movementX, 0);
-				            	setImage(imgD1);
-				            	second = false;
-				            }
-						}else*/if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {	            	
-			                move(0, -movementY);
-			                setImage(imgW2);
-			                second = true;
-			                
-			                yPosLast = getY();
-			            }else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {	            	
-			            	move(-movementX, 0);
-			            	setImage(imgA2);
-			            	second = true;
-			            	
-			            	yPosLast = getX();
-			            }else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {	            	
-			            	move(0, movementY);
-			            	setImage(imgS2);
-			            	second = true;
-			            	
-			            	yPosLast = getY();
-			            }else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {          	
-			            	move(movementX, 0);
-			            	setImage(imgD2);
-			            	second = true;
-			            	
-			            	xPosLast = getX();
-			            }
-					}
+				if( !gamePaused && !noMove ) {
+					if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {	            	
+						yPosLast = getY() - movementY;
+		                
+						move(0, -movementY);
+		                setImage(imgW2);
+		                second = true;
+		            }else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {	            	
+		            	xPosLast = getX() - movementX;
+		            	
+		            	move(-movementX, 0);
+		            	setImage(imgA2);
+		            	second = true;
+		            }else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {	            	
+		            	yPosLast = getY() + movementY;
+		            	
+		            	move(0, movementY);
+		            	setImage(imgS2);
+		            	second = true;
+		            }else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {          	
+		            	xPosLast = getX() + movementX;
+		            	
+		            	move(movementX, 0);
+		            	setImage(imgD2);
+		            	second = true;
+		            }
 				}
 			}
 		});
 		setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event) {
-				if( !gamePaused ) {
-					if ( !noMove && xPosLast == getX() && yPosLast == getY() ) {
-						if ( (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) ) {
-							if (getY() < farPos) {//scoring system
-								changeScore = true;
-								farPos = getY();
-								points+=10;
-							}
-			                move(0, -movementY);
-			                setImage(imgW1);
-			                second = false;
-			            }
-			            else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {	            	
-			            	move(-movementX, 0);
-			            	setImage(imgA1);
-			            	second = false;
-			            }
-			            else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {	            	
-			            	move(0, movementY);
-			            	setImage(imgS1);
-			            	second = false;
-			            }
-			            else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {	            	
-			            	move(movementX, 0);
-			            	setImage(imgD1);
-			            	second = false;
-			            }
-					}else if( !noMove ){
-						setImage(imgW1);
-					}
+				if( !gamePaused && !noMove ) {
+					if ( (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP ) && yPosLast == getY() ) {
+						if (getY() < farPos) {//scoring system
+							changeScore = true;
+							farPos = getY();
+							points+=20;
+						}
+		                move(0, -movementY);
+		                setImage(imgW1);
+		                second = false;
+		            }
+		            else if ( (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) ) {	            	
+		            	move(-movementX, 0);
+		            	setImage(imgA1);
+		            	second = false;
+		            }
+		            else if ( (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) && yPosLast == getY() ) {	            	
+		            	move(0, movementY);
+		            	setImage(imgS1);
+		            	second = false;
+		            }
+		            else if ( (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) ) {	            	
+		            	move(movementX, 0);
+		            	setImage(imgD1);
+		            	second = false;
+		            }
 				}
 			}
 		});
@@ -203,9 +184,7 @@ public class Animal extends Actor {
 				}
 				if( animationFrame == carDeathImg.size() ) {
 					//respawn animal
-					setX(spawnX);
-					setY(spawnY);
-					setImage(new Image( img_path + "froggerUp.png", imgSize, imgSize, true, true));
+					respawnAnimal();
 					
 					carDeath = false;
 					noMove = false;
@@ -226,9 +205,7 @@ public class Animal extends Actor {
 				}
 				if( animationFrame == waterDeathImg.size() ) {
 					//respawn animal
-					setX(spawnX);
-					setY(spawnY);
-					setImage(new Image( img_path + "froggerUp.png", imgSize, imgSize, true, true));
+					respawnAnimal();
 					
 					waterDeath = false;
 					noMove = false;
@@ -269,8 +246,8 @@ public class Animal extends Actor {
 				farPos=800;
 				getIntersectingObjects(End.class).get(0).setEnd();
 				end++;
-				setX(spawnX);
-				setY(spawnY);
+				
+				respawnAnimal();
 			}else if (getY()<413){	
 				waterDeath = true;
 			}
@@ -287,8 +264,8 @@ public class Animal extends Actor {
 				farPos=800;
 				getIntersectingObjects(End.class).get(0).setEnd();
 				end += 1;
-				setX(spawnX);
-				setY(spawnY);
+				
+				respawnAnimal();
 			}
 		}
 	}//end act method
@@ -365,7 +342,7 @@ public class Animal extends Actor {
 		return godMode;
 	}
 	/**
-	 * Sets the private boolean variable godMode(debugging tool) inside the {@code Animal } class to the boolean parameter
+	 * Sets the private boolean variable godMode(debugging tool) inside the {@code Animal} class to the boolean parameter
 	 * @param gm Boolean variable that represents the mortality of the player character
 	 */
 	public void setGodMode(boolean gm) {
@@ -380,4 +357,13 @@ public class Animal extends Actor {
 	private long nanoToMilli(long nnSec) { 
     	return (nnSec/1000000);
     }
+	
+	/**
+	 * Spawns/Respawns animal to the set {@code spawnX} and {@code spawnY} Double variables
+	 */
+	private void respawnAnimal() {
+		setX(spawnX);
+		setY(spawnY);
+		setImage(new Image( img_path + "froggerUp.png", imgSize, imgSize, true, true));
+	}
 }
