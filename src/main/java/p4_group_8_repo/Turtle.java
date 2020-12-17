@@ -10,10 +10,11 @@ import javafx.scene.image.Image;
  * </p>
  * <p>
  * Usage:</p>
- * <pre><code>Turtle turtle = new Turtle( int x, int y, int speed, int image-width, in image-height );</pre></code>
+ * <pre><code>Turtle turtle = new Turtle( int x, int y, int speed, int image-width, in image-height );
+ * </code></pre>
  * <p>
  * e.g:</p>
- * <pre><code>Turtle turtle1 = new Turtle(500, 376, -1, 130, 130);</pre></code>
+ * <pre><code>Turtle turtle1 = new Turtle(500, 376, -1, 130, 130);</code></pre>
  * 
  * @author Pang CH
  * 

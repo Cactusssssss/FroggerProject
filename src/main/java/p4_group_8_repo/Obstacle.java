@@ -9,9 +9,10 @@ import javafx.scene.image.Image;
  * </p>
  * <p>
  * Usage:</p> 
- * <pre><code>Obstacle obstacle = new Obstacle( "obstacle.png", int x, int y, int speed, int image-width, int image-height);</pre></code>
+ * <pre><code>Obstacle obstacle = new Obstacle( "obstacle.png", int x, int y, int speed, int image-width, int image-height);
+ * </code></pre>
  * <p>e.g:</p>
- * <pre><code>Obstacle truck1 = new Obstacle( "truck1Right.png", 0, 649, 1, 120, 120);</pre></code>
+ * <pre><code>Obstacle truck1 = new Obstacle( "truck1Right.png", 0, 649, 1, 120, 120);</code></pre>
  *
  * @author Pang CH
  */

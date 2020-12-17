@@ -8,10 +8,10 @@ import javafx.scene.image.Image;
  * </p>
  * <p>
  * Usage:</p>
- * <pre><code>Icon icon = new Icon( "icon.png", int size, int x, int y );</pre></code>
+ * <pre><code>Icon icon = new Icon( "icon.png", int size, int x, int y );</code></pre>
  * <p>
  * e.g:</p>
- * <pre><code>Icon froggerIcon = new Icon( "soundon.png", 25, 200, 400 );</pre></code>
+ * <pre><code>Icon froggerIcon = new Icon( "soundon.png", 25, 200, 400 );</code></pre>
  * 
  * @author Pang CH
  */

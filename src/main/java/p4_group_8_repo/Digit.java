@@ -10,11 +10,11 @@ import javafx.scene.image.Image;
  * <p>
  * Usage:
  * </p>
- * <pre><code>Digit( int number, int dimensions, int x, int y);</pre></code>
+ * <pre><code>Digit( int number, int dimensions, int x, int y);</code></pre>
  * <p>
  * e.g:
  * </p>
- * <pre><code>Digit(9, 25, 300, 300));</pre></code>
+ * <pre><code>Digit(9, 25, 300, 300));</code></pre>
  * 
  *
  */

@@ -7,9 +7,9 @@ import javafx.scene.image.Image;
  * {@code Word} class contains a constructor to display individual alphabet images from a preset directory
  * </p>
  * <p>Usage:</p>
- * <pre><code>Word word = new Word(String alphabet, int dimension, int x, int y);</pre></code>
+ * <pre><code>Word word = new Word(String alphabet, int dimension, int x, int y);</code></pre>
  * <p>e.g:</p>
- * <pre><code>Word word1 = new Word("y", 25, 200, 300);</pre></code>
+ * <pre><code>Word word1 = new Word("y", 25, 200, 300);</code></pre>
  * 
  * @author Pang CH
  */

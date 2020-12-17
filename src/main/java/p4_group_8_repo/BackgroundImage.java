@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
  * Usage:
  * </p>
  * <br>
- * <pre><code>BackgroundImage background = new BackgroundImage( "frog background2.png" );</pre></code>
+ * <pre><code>BackgroundImage background = new BackgroundImage( "frog background2.png" );</code></pre>
  * 
  */
 public class BackgroundImage extends Actor{

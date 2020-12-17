@@ -10,11 +10,11 @@ import javafx.scene.image.Image;
  * <p>
  * Usage:
  * </p>
- * <pre><code>End end = new End(int x, in y);</pre></code>
+ * <pre><code>End end = new End(int x, in y);</code></pre>
  * <p>
  * e.g:
  * </p>
- * <pre><code>End end1 = new End(13,96);</pre></code>
+ * <pre><code>End end1 = new End(13,96);</code></pre>
  *
  * @author Pang CH
  */

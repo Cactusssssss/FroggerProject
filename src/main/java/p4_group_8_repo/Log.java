@@ -9,10 +9,10 @@ import javafx.scene.image.Image;
  * 
  * <p>
  * Usage:</p>
- * <pre><code>Log log= new Log( "log.png", int size, int x, int y, double speed);</pre></code>
+ * <pre><code>Log log= new Log( "log.png", int size, int x, int y, double speed);</code></pre>
  * <p>
  * e.g:</p>
- * <pre><code>Log log1 = new Log( "logs.png", 300, 0, 276, -2);</pre></code>
+ * <pre><code>Log log1 = new Log( "logs.png", 300, 0, 276, -2);</code></pre>
  * 
  *
  */

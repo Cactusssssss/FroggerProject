@@ -18,7 +18,7 @@ import javafx.scene.input.KeyEvent;
  * </p>
  * <pre><code>
  * Animal animal = new Animal( img_path + "froggerUp.png");
- * </pre></code>
+ * </code></pre>
  * 
  * @author Pang CH
  *
@@ -52,7 +52,6 @@ public class Animal extends Actor {
 	private double yPosLast = 0;
 	
 	//boolean values
-	private boolean second = false;
 	private boolean carDeath = false;
 	private boolean waterDeath = false;
 	private boolean noMove = false;
@@ -97,25 +96,21 @@ public class Animal extends Actor {
 		                
 						move(0, -movementY);
 		                setImage(imgW2);
-		                second = true;
 		            }else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {	            	
 		            	xPosLast = getX() - movementX;
 		            	
 		            	move(-movementX, 0);
 		            	setImage(imgA2);
-		            	second = true;
 		            }else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {	            	
 		            	yPosLast = getY() + movementY;
 		            	
 		            	move(0, movementY);
 		            	setImage(imgS2);
-		            	second = true;
 		            }else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {          	
 		            	xPosLast = getX() + movementX;
 		            	
 		            	move(movementX, 0);
 		            	setImage(imgD2);
-		            	second = true;
 		            }
 				}
 			}
@@ -131,22 +126,18 @@ public class Animal extends Actor {
 						}
 		                move(0, -movementY);
 		                setImage(imgW1);
-		                second = false;
 		            }
 		            else if ( (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) ) {	            	
 		            	move(-movementX, 0);
 		            	setImage(imgA1);
-		            	second = false;
 		            }
 		            else if ( (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) && yPosLast == getY() ) {	            	
 		            	move(0, movementY);
 		            	setImage(imgS1);
-		            	second = false;
 		            }
 		            else if ( (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) ) {	            	
 		            	move(movementX, 0);
 		            	setImage(imgD1);
-		            	second = false;
 		            }
 				}
 			}

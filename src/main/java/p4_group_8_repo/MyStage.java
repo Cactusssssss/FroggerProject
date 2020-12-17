@@ -11,7 +11,7 @@ import javafx.scene.media.MediaPlayer;
  * </p>
  * <p>
  * Usage:</p>
- * <pre><code>MyStage background = new Mystage();</pre></code>
+ * <pre><code>MyStage background = new Mystage();</code></pre>
  * 
  * @author Pang CH
  *

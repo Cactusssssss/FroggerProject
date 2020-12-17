@@ -33,7 +33,7 @@ import javafx.stage.Stage;
  * <p>
  * After pasting the template, replace x with a new level variable then add a new background image and obstacles/turtles/wet turtles/logs.
  * <br>
- * After adding a new level, the value of the finalLevel Int variable has to be incremented
+ * After adding a new level, the value of the finalLevel Int variable has to be incremented and a new if else statement is to be added to the {@code checkLevel} method
  * </p>
  * 
  * <p>

@@ -10,9 +10,10 @@ import javafx.scene.image.Image;
  * {@code WetTurtle} class contains methods and a constructor for wet turtle spawning, wet turtle movement and wet turtle animation controller
  * </p>
  * <p>Usage:</p>
- * <pre><code>WetTurtle wetturtle = new WetTurtle( int x, int y, int movementSpeed, int image-width, in image-height );</pre></code>
+ * <pre><code>WetTurtle wetturtle = new WetTurtle( int x, int y, int movementSpeed, int image-width, in image-height );
+ * </code></pre>
  * <p>e.g:</p>
- * <pre><code>WetTurtle wturtle = new WetTurtle(700, 376, -1, 130, 130);</pre></code>
+ * <pre><code>WetTurtle wturtle = new WetTurtle(700, 376, -1, 130, 130);</code></pre>
  * 
  * @author Pang CH
  */

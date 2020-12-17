@@ -20,7 +20,7 @@ import javafx.scene.input.KeyEvent;
  * <p>
  * Usage:
  * </p>
- * <pre><code>EndMenu endmenu = new EndMenu(Stage stage);</pre></code>
+ * <pre><code>EndMenu endmenu = new EndMenu(Stage stage);</code></pre>
  * 
  *
  */

@@ -11,7 +11,7 @@ import javafx.stage.Stage;
  * </p>
  * <p>
  * Usage:</p>
- * <pre><code>MainMenu mm = new MainMenu(Stage stage)</pre></code>
+ * <pre><code>MainMenu mm = new MainMenu(Stage stage)</code></pre>
  * 
  * 
  * @author Pang CH
