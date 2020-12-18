@@ -149,6 +149,7 @@ public class Levels extends Actor{
 		
 		//prints current level number
 		System.out.print("level: "+ (currLevel+1) +"\n");
+		alert.setTitle(" ");
 		alert.setHeaderText(" Level " + (currLevel+1) );
     	alert.show();
 		
