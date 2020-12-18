@@ -47,7 +47,6 @@ public class Animal extends Actor {
 	//index number of death image array list
 	private int animationFrame = 0;
 	//last alive player positions
-	private double xPosLast = 0;
 	private double yPosLast = 0;
 	
 	//boolean values
@@ -95,9 +94,7 @@ public class Animal extends Actor {
 		                
 						move(0, -movementY);
 		                setImage(imgW2);
-		            }else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {	            	
-		            	xPosLast = getX() - movementX;
-		            	
+		            }else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {
 		            	move(-movementX, 0);
 		            	setImage(imgA2);
 		            }else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {	            	
@@ -105,9 +102,7 @@ public class Animal extends Actor {
 		            	
 		            	move(0, movementY);
 		            	setImage(imgS2);
-		            }else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {          	
-		            	xPosLast = getX() + movementX;
-		            	
+		            }else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {
 		            	move(movementX, 0);
 		            	setImage(imgD2);
 		            }
@@ -149,7 +144,6 @@ public class Animal extends Actor {
 	 */
 	public void act(long now) {
 		if( !animalSpawned ) { // player has spawned
-        	xPosLast = getX();
         	yPosLast = getY();
 			animalSpawned = true;
 			currTime = now;
