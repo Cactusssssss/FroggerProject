@@ -205,6 +205,7 @@ public class Levels extends Actor{
 					}
 				}
 				if( event.getCode() == KeyCode.F5 ) {
+					animal.setFarPos(800);
 					animal.setStop(5);
 				}
 			}

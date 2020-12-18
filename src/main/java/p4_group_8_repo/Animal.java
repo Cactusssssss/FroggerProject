@@ -366,4 +366,12 @@ public class Animal extends Actor {
 	public ArrayList<String> getCarDeathImg(){
 		return carDeathImg;
 	}
+	
+	/**
+	 * Sets the Double variable 'changeScore' to the parameter
+	 * @param fp Double variable representing the furthest distance travled
+	 */
+	public void setFarPos( double fp ) {
+		farPos = fp;
+	}
 }
