@@ -196,14 +196,14 @@ public class Levels extends Actor{
 				if ( event.getCode() == KeyCode.P ) { // pause level
 					pauseLogic();
 				}
-				if ( event.getCode() == KeyCode.G ) {
+				if ( event.getCode() == KeyCode.F8 ) {
 					if( animal.getGodMode() ) {
 						animal.setGodMode( false );
 					}else {
 						animal.setGodMode( true );						
 					}
 				}
-				if( event.getCode() == KeyCode.L ) {
+				if( event.getCode() == KeyCode.F5 ) {
 					animal.setStop(5);
 				}
 			}

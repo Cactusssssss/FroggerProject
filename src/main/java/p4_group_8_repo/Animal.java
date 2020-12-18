@@ -27,7 +27,6 @@ public class Animal extends Actor {
 	private String img_path = new String("file:src/main/java/p4_group_8_repo/");
 	private ArrayList<String> waterDeathImg = new ArrayList<String>();
 	private ArrayList<String> carDeathImg = new ArrayList<String>();
-	private Levels level;
 	
 	//movement and player spawning x & y values
 	private double movementY = 13.3333333*2;
@@ -356,5 +355,21 @@ public class Animal extends Actor {
 		setX(spawnX);
 		setY(spawnY);
 		setImage(new Image( img_path + "froggerUp.png", imgSize, imgSize, true, true));
+	}
+	
+	/**
+	 * Gets an ArrayList of all the the water death animation image names
+	 * @return ArrayList waterDeathImg that contains all the water death animation image names
+	 */
+	public ArrayList<String> getWaterDeathImg() {
+		return waterDeathImg;
+	}
+	
+	/**
+	 * Gets an ArrayList of all the the car death animation image names
+	 * @return ArrayList carDeathImg that contains all the car death animation image names
+	 */
+	public ArrayList<String> getCarDeathImg(){
+		return carDeathImg;
 	}
 }
