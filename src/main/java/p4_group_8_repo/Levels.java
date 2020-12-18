@@ -598,6 +598,7 @@ public class Levels extends Actor{
 			background.stop();
 		}
     }
+    
     /**
      * Contains the mute and unmute game mechanic
      */

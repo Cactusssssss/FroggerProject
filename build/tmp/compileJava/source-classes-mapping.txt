@@ -4,41 +4,41 @@ p4_group_8_repo/Main.java
  p4_group_8_repo.Main
 p4_group_8_repo/Obstacle.java
  p4_group_8_repo.Obstacle
+p4_group_8_repo/WetTurtle.java
+ p4_group_8_repo.WetTurtle
+p4_group_8_repo/BackgroundImage.java
+ p4_group_8_repo.BackgroundImage
+p4_group_8_repo/Turtle.java
+ p4_group_8_repo.Turtle
+p4_group_8_repo/Digit.java
+ p4_group_8_repo.Digit
+p4_group_8_repo/Icon.java
+ p4_group_8_repo.Icon
+p4_group_8_repo/Actor.java
+ p4_group_8_repo.Actor
+p4_group_8_repo/Animal.java
+ p4_group_8_repo.Animal
+ p4_group_8_repo.Animal$1
+ p4_group_8_repo.Animal$2
+p4_group_8_repo/Log.java
+ p4_group_8_repo.Log
+p4_group_8_repo/Word.java
+ p4_group_8_repo.Word
 p4_group_8_repo/World.java
  p4_group_8_repo.World
  p4_group_8_repo.World$1
  p4_group_8_repo.World$1$1
  p4_group_8_repo.World$1$2
  p4_group_8_repo.World$2
-p4_group_8_repo/BackgroundImage.java
- p4_group_8_repo.BackgroundImage
-p4_group_8_repo/Log.java
- p4_group_8_repo.Log
-p4_group_8_repo/Icon.java
- p4_group_8_repo.Icon
-p4_group_8_repo/Digit.java
- p4_group_8_repo.Digit
-p4_group_8_repo/Actor.java
- p4_group_8_repo.Actor
-p4_group_8_repo/Word.java
- p4_group_8_repo.Word
 p4_group_8_repo/End.java
  p4_group_8_repo.End
-p4_group_8_repo/Turtle.java
- p4_group_8_repo.Turtle
-p4_group_8_repo/WetTurtle.java
- p4_group_8_repo.WetTurtle
-p4_group_8_repo/MainMenu.java
- p4_group_8_repo.MainMenu
- p4_group_8_repo.MainMenu$1
-p4_group_8_repo/Animal.java
- p4_group_8_repo.Animal
- p4_group_8_repo.Animal$1
- p4_group_8_repo.Animal$2
 p4_group_8_repo/Levels.java
  p4_group_8_repo.Levels
  p4_group_8_repo.Levels$1
  p4_group_8_repo.Levels$2
+p4_group_8_repo/MainMenu.java
+ p4_group_8_repo.MainMenu
+ p4_group_8_repo.MainMenu$1
 p4_group_8_repo/EndMenu.java
  p4_group_8_repo.EndMenu
  p4_group_8_repo.EndMenu$1
